@@ -11,15 +11,19 @@ const CherryDonateButton = () => {
     return (
         <div className="button-wrapper">
             <button className="cherry-donate-button" onClick={handleClick}>
-                <span className="cherry-bg" />
+                <div className="cherry-image-box">
+                    <span className="cherry-bg" />
+                    {emoticons.map((_, index) => (
+                        <div className="floating-image" key={index}>
+                            <img src="/images/cherry.svg" alt="Cherry Icon" />
+                        </div>
+                    ))}
+                </div>
+                
                 <span className="cherry-text-bg" />
             </button>
             <div className="emoticons">
-                {emoticons.map((_, index) => (
-                    <div className="floating-image" key={index}>
-                        <img src="/images/cherry.svg" alt="Cherry Icon" />
-                    </div>
-                ))}
+                
             </div>
         </div> 
     )
