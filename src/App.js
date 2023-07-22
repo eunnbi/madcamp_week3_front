@@ -12,10 +12,9 @@ function App() {
       <Routes>
         <Route path="/" Component={HomePage} />
         <Route path="/auth" Component={AuthPage} />
-        <Route path="/myroom" Component={MyRoomPage}>
-          <Route path="/myroom/decoration" Component={RoomDecorationPage} />
-          <Route path="/myroom/avatar" Component={AvatarPage} />
-        </Route>
+        <Route path="/myroom" Component={MyRoomPage}/>
+        <Route path="/myroom/decoration" Component={RoomDecorationPage} />
+        <Route path="/myroom/avatar" Component={AvatarPage} />
         <Route path="/otherRoom" Component={OtherRoomPage} />
       </Routes>
     </BrowserRouter>
