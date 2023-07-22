@@ -1,0 +1,14 @@
+.logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    align-self: flex-end;
+    color: black;
+}
+.logout-bg {
+    width: 1.6rem;
+    height: 1.3rem;
+    background: url(../../../public/images/logout.svg) no-repeat;
+    background-size: contain;
+}

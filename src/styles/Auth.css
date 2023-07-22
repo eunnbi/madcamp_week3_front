@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("../../public/images/authBackground.png");
+    background: url("../../public/images/authBackground.svg");
     background-size: cover;
 }
 
