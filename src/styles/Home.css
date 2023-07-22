@@ -1,0 +1,41 @@
+.home-main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    background: url("../../public/images/homeBackground.png");
+    background-size: cover;
+}
+
+
+.logo-image {
+    width: 90vw;
+    max-width: 600px;
+    object-fit: cover;
+}
+
+.button-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6.25rem;
+}
+.button-box button {
+    display: flex;
+    align-items: center;
+    background-color: #FFD4E1;
+    border-radius: 1.875rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: black;
+    transition: all 0.1s ease-in-out;
+}
+.button-box button:hover {
+    background-color: #fabacd;
+}
+
+.button-box button a {
+    padding: 0.5rem 3rem;
+}

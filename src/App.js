@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import AuthPage from './pages/AuthPage';
+import MyRoomPage from './pages/MyRoomPage';
+import OtherRoomPage from './pages/OtherRoomPage';
+import RoomDecorationPage from './pages/RoomDecorationPage';
+import AvatarPage from './pages/AvatarPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={HomePage} />
+        <Route path="/auth" Component={AuthPage} />
+        <Route path="/myroom" Component={MyRoomPage}>
+          <Route path="/myroom/decoration" Component={RoomDecorationPage} />
+          <Route path="/myroom/avatar" Component={AvatarPage} />
+        </Route>
+        <Route path="/otherRoom" Component={OtherRoomPage} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
