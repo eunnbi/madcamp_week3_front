@@ -33,6 +33,6 @@
     display: block;
     width: 2.5rem;
     height: 2.5rem;
-    background: url(../../../public/images/cherry.png);
+    background: url(../../../public/images/cherry.svg);
     background-size: contain;
 }
