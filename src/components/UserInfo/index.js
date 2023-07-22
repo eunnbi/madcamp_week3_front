@@ -5,7 +5,7 @@ import "./style.css";
 const UserInfo = ({ user }) => {
     const [cherry, setCherry] = useState(0);
     useEffect(() => {
-        getUser(user.name).then((data) => {
+        getUser(user.name).then(({ data }) => {
             setCherry(data.cherry);
         })
     }, []);

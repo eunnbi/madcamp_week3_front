@@ -13,6 +13,9 @@ main {
 }
 
 .right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     background-color: rgba(255, 255, 255, 0.60);
     padding: 1.5rem 1rem;
 }
