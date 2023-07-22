@@ -1,0 +1,24 @@
+.cherry-rank-item {
+    display: flex;
+    align-items: center;
+    gap: 3.375rem;
+}
+
+.rank-name {
+    color: black;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.cherry-count {
+    display: flex;
+    align-items: center;
+    color: #DB1D1D;
+    font-weight: 500;
+}
+
+.cherry-bg {
+    width: 2rem;
+    height: 2rem;
+    background: url(../../../public/images/cherry.svg) no-repeat contain;
+}

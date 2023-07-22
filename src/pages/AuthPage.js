@@ -80,7 +80,7 @@ const AuthPage = () => {
             try {
                 const { data } = await getUser(nickname);
                 localStorage.setItem("USER", JSON.stringify(data));
-                navigate("/myroom");
+                navigate("/room");
             }
             catch(e) {
                 setMessage({
