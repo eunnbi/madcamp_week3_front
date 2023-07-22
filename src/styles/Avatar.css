@@ -1,0 +1,18 @@
+main {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    background-color: #D9D9D9;
+    height: 100vh;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+}
+
+.right-section {
+    background-color: rgba(255, 255, 255, 0.60);
+    padding: 1.5rem 1rem;
+}
