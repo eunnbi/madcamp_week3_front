@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import "../styles/Auth.css";
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios";
+import { getUser } from "../api/user";
 
 const AuthPage = () => {
     const navigate = useNavigate();
@@ -25,7 +26,6 @@ const AuthPage = () => {
         }
         setMessage("");
         try {
-            // TODO: call API
             const { data } = await axios.post("/api/user/checkDuplicate", {
                 name: nickname
             })
@@ -66,7 +66,6 @@ const AuthPage = () => {
         setMessage("");
         if (isRegister) {
             try {
-                // TODO: call API
                 const { data } = await axios.post("/api/user/add", {
                     name: nickname
                 })
@@ -79,11 +78,8 @@ const AuthPage = () => {
         }
         else {
             try {
-                // TODO: call API
-                const { data } = await axios.post("/api/user/getUser", {
-                    name: nickname
-                })
-                console.log(data);
+                const { data } = await getUser(nickname);
+                localStorage.setItem("USER", JSON.stringify(data));
                 navigate("/myroom");
             }
             catch(e) {
