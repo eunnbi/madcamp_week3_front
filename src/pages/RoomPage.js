@@ -10,6 +10,7 @@ import NotFoundPage from "./NotFoundPage";
 import CherryDonateButton from "../components/CherryDonateButton";
 
 import "../styles/Room.css";
+import GotoMyRoomButton from "../components/GotoMyRoomButton";
 
 
 const RoomPage = () => {
@@ -24,9 +25,6 @@ const RoomPage = () => {
     let finalName = null;
     if (name != null) finalName = name;
     else if (loginUser != null && loginUser.name) finalName = loginUser.name;
-    const goToMyRoom = () => {
-        navigate("/room");
-    }
     useEffect(() => {
         if (value === null) {
             navigate('/');
@@ -55,14 +53,20 @@ const RoomPage = () => {
                 <UserInfo user={user} isMyRoom={isMyRoom} />
                 {isMyRoom && (
                     <div className="room-button-box">
-                        <button className="white-box"><span className="room-bg" />방꾸미기</button>
-                        <button className="white-box"><span className="avatar-bg" />아바타</button>
+                        <button className="white-box" onClick={() => navigate("/room/decoration")}>
+                            <span className="room-bg" />
+                            방꾸미기
+                        </button>
+                        <button className="white-box" onClick={() => navigate("/room/avatar")}>
+                            <span className="avatar-bg" />
+                            아바타
+                        </button>
                     </div>
                 )}
             </div>
             <div className="right-section">
                 <div className="top-row">
-                    {!isMyRoom ? <button className="back-button" onClick={goToMyRoom}><span className="chevron-right" /></button> : <span></span>}
+                    {!isMyRoom ? <GotoMyRoomButton /> : <span></span>}
                     <LogoutButton />
                 </div>
                 <div>

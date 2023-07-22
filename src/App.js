@@ -15,8 +15,8 @@ function App() {
         <Route path="/" Component={HomePage} />
         <Route path="/auth" Component={AuthPage} />
         <Route path="/room" Component={RoomPage}/>
-        <Route path="/myroom/decoration" Component={RoomDecorationPage} />
-        <Route path="/myroom/avatar" Component={AvatarPage} />
+        <Route path="/room/decoration" Component={RoomDecorationPage} />
+        <Route path="/room/avatar" Component={AvatarPage} />
         <Route path='*' Component={NotFoundPage} />
       </Routes>
     </BrowserRouter>

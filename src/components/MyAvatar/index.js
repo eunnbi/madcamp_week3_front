@@ -31,7 +31,7 @@ const MyAvatarList = ({ userId }) => {
 
     return (
         <div class="white-box">
-            <h2 className="avatar-title">옷장 탭 제목</h2>
+            <h2 className="white-box-title">내 아바타</h2>
             <ul className="avatar-wrapper" id="avatarContainer">
                 {myAvatarList.map((avatar, index) => (
                 <Item key={index} name={avatar.name} itemImagePath={avatar.itemImagePath} avatarId = {avatar._id} />

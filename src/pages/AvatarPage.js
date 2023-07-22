@@ -4,7 +4,9 @@ import "../styles/Avatar.css";
 import MyAvatarList from "../components/MyAvatar";
 import ShopAvatarList from "../components/AvatarShop";
 import { useEffect, useState } from "react";
-import { getAvatar, getMyAvatar,setAvatar, buyAvatar, getMyAvatarImagePath} from "../api/avatar";
+import { getUser } from "../api/user";
+import { getMyAvatarImagePath } from "../api/avatar";
+import GotoMyRoomButton from "../components/GotoMyRoomButton";
 
 
 const AvatarPage = () => {
@@ -14,16 +16,21 @@ const AvatarPage = () => {
         navigate("/");
     }
     const user = JSON.parse(value);
-
-    const [myAvatarImagePath, setMyAvatarImagePath] = useState(0);
+    const [myAvatarImagePath, setMyAvatarImagePath] = useState("");
     useEffect(() => {
+        getUser(user.name)
+        .then(({ data }) => {
+            localStorage.setItem("USER", JSON.stringify(data))
+        }).catch((e) => {
+            console.log(e);
+        })
         getMyAvatarImagePath(user._id).then(({data}) => {
             setMyAvatarImagePath(data.avatarImagePath);
         })
     }, []);
 
     return (
-        <main>
+        <main className="avatar-page-main">
             <div className="left-section">
                 <UserInfo user={user} />
                 <div className = "image-wrapper">
@@ -31,8 +38,13 @@ const AvatarPage = () => {
                 </div>
             </div>
             <div className="right-section">
-                <MyAvatarList userId={user._id} />
-                <ShopAvatarList userId = {user._id} />
+                <div>
+                    <GotoMyRoomButton />
+                </div>
+                <div>
+                    <MyAvatarList userId={user._id} />
+                    <ShopAvatarList userId = {user._id} />
+                </div>
             </div>
         </main>
     )
