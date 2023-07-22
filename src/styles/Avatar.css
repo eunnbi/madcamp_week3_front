@@ -1,0 +1,30 @@
+main {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    background-color: #D9D9D9;
+    height: 100vh;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+}
+.image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px; /* 이 부분은 상황에 따라 조절해야 합니다. */
+}
+
+.image-wrapper img {
+    width: 500px; /* 원하는 이미지의 크기 설정 */
+    height: auto;
+}
+
+
+.right-section {
+    background-color: rgba(255, 255, 255, 0.60);
+    padding: 1.5rem 1rem;
+}
