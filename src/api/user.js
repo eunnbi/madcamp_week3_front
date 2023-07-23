@@ -13,3 +13,8 @@ export const checkDuplicate = async (name) => {
     });
     return data;
 }
+
+export const getRandomUser = async () => {
+    const data = await axios.get("/api/user/random");
+    return data;
+}

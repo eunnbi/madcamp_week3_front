@@ -1,7 +1,7 @@
 import "./style.css";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkDuplicate } from "../../api/user";
+import { checkDuplicate, getRandomUser } from "../../api/user";
 
 const FindUser = () => {
     const [inputValue, setInputValue] = useState('');
@@ -20,10 +20,16 @@ const FindUser = () => {
             }
         }).catch((e) => {
             alert("존재하지 않는 이름입니다 🥲");
-        })
-
-        
+        }) 
     };
+
+    const handleRandomButtonClick = () => {
+        getRandomUser().then(({data}) => {
+            navigate(`/room?name=${data.name}`);
+        }).catch((e) => {
+            alert("에러 발생 ㅠㅠ 🥲");
+        })
+    }
 
     return (
         <div className="white-box">
@@ -41,7 +47,7 @@ const FindUser = () => {
                     onClick={handleButtonClick} // 버튼 클릭 시 handleButtonClick를 호출합니다.
                 ><span className="chevron-left" /></button>
             </div>
-            <button type="button" className="random-button">랜덤 파도타기</button>
+            <button type="button" className="random-button" onClick={handleRandomButtonClick}>랜덤 파도타기</button>
         </div>
     )
 }
