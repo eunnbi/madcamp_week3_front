@@ -1,6 +1,6 @@
 import { useSetRecoilState } from "recoil";
 import CommonItem from "../CommonItem";
-import { roomFurnitureListState } from "../../store/furniture";
+import { roomFurnitureState } from "../../store/furniture";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Skeleton from "../Skeleton";
@@ -8,9 +8,9 @@ import Skeleton from "../Skeleton";
 const FurnitureList = ({ user }) => {
     const [loading, setLoading] = useState(true);
     const [list, setList] = useState([]);
-    const setRoomFurnitureList = useSetRecoilState(roomFurnitureListState);
+    const setRoomFurnitureState = useSetRecoilState(roomFurnitureState);
     const onClick = (itemImagePath, furnitureId) => () => {
-        setRoomFurnitureList((state) => ({
+        setRoomFurnitureState((state) => ({
             nextId: state.nextId + 1,
             list: state.list.concat([{
                 id: state.nextId,
