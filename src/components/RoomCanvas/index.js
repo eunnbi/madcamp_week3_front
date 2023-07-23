@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Stage, Layer, Image } from 'react-konva';
 import { useRecoilState } from 'recoil';
-import { roomFurnitureListState } from '../../store/furniture';
+import { roomFurnitureState } from '../../store/furniture';
 import axios from 'axios';
 
 const RoomCanvas = ({ roomId, draggable }) => {
-    const [{ list: roomFurnitureList }, setRoomFurnitureList] = useRecoilState(roomFurnitureListState);
+    const [{ list: roomFurnitureList }, setRoomFurnitureState] = useRecoilState(roomFurnitureState);
     const stage = useRef(null);
     const [size, setSize] = useState({
         width: 0,
@@ -24,7 +24,7 @@ const RoomCanvas = ({ roomId, draggable }) => {
         const index = list.indexOf(item);
         list.splice(index, 1);
         list.push(item);
-        setRoomFurnitureList((state) => ({
+        setRoomFurnitureState((state) => ({
             ...state,
             list
         }));
@@ -39,15 +39,15 @@ const RoomCanvas = ({ roomId, draggable }) => {
           x: e.target.x(),
           y: e.target.y(),
         };
-        setRoomFurnitureList((state) => ({
+        setRoomFurnitureState((state) => ({
             ...state,
             list
         }))
     }
     const onDoubleClick = (id) => (e) => {
-        setRoomFurnitureList((state) => ({
+        setRoomFurnitureState((state) => ({
             ...state,
-            list: state.list.filter((item) => item.id !== id)
+            list: state.list.filter((item) => item.id !== id),
         }))
     }
     useEffect(() => {
@@ -66,9 +66,13 @@ const RoomCanvas = ({ roomId, draggable }) => {
                 roomId
             }).then(({ data }) => {
                 console.log(data);
-                setRoomFurnitureList({
+                setRoomFurnitureState({
                     nextId: 1,
                     list: data.map((item) => ({
+                        ...item,
+                        id: item.roomFurnitureId
+                    })),
+                    initialList: data.map((item) => ({
                         ...item,
                         id: item.roomFurnitureId
                     }))
@@ -93,7 +97,7 @@ const RoomCanvas = ({ roomId, draggable }) => {
                         y={furniture.y}
                         onDragStart={onDragStart(furniture.id)}
                         onDragEnd={onDragEnd(furniture.id)}
-                        onDblClick={onDoubleClick(furniture.id)}
+                        onDblClick={draggable ? onDoubleClick(furniture.id) : undefined}
                     />
                 )
             })}

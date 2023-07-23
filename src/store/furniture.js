@@ -1,9 +1,10 @@
 import { atom } from "recoil";
 
-export const roomFurnitureListState = atom({
+export const roomFurnitureState = atom({
     key: "roomFurnitureState",
     default: {
         nextId: 1,
-        list: []
+        list: [],
+        initialList: []
     }
 })

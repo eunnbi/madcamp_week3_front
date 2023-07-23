@@ -1,14 +1,15 @@
 import { useRecoilValue } from "recoil";
-import { roomFurnitureListState } from "../../store/furniture";
+import { roomFurnitureState } from "../../store/furniture";
 import "./style.css";
 import axios from "axios";
+import { useState } from "react";
 
 const RoomSaveButton = ({ roomId }) => {
-    const roomFurnitureList = useRecoilValue(roomFurnitureListState);
+    const [loading, setLoading] = useState(false);
+    const roomFurniture = useRecoilValue(roomFurnitureState);
     const onClick = async () => {
-        console.log(roomFurnitureList);
-        const list = roomFurnitureList.list.map((item, index) => ({...item, z: index + 1 }));
-        console.log(list);
+        setLoading(true);
+        const list = roomFurniture.list.map((item, index) => ({...item, z: index + 1 }));
         for (let i = 0; i < list.length; i++) {
             try {
                 const { data } = await axios.post("/api/furniture/saveFurniturePosition", {
@@ -25,6 +26,28 @@ const RoomSaveButton = ({ roomId }) => {
                 console.log(e);
             }
         }
+        for (let i = 0; i < roomFurniture.initialList.length; i++) {
+            try {
+                const item = roomFurniture.initialList[i];
+                const index = roomFurniture.list.findIndex(furniture => furniture.id === item.id);
+                console.log(index);
+                if (index === -1) {
+                    try {
+                        const { data } = await axios.post("/api/furniture/deleteFurniturePosition", {
+                            roomFurnitureId: item.id
+                        })
+                        console.log(data);
+                    }
+                    catch(e) {
+                        console.log(e)
+                    }
+                }
+            }
+            catch(e) {
+                console.log(e);
+            }
+        }
+        setLoading(false);
     }
     return (
         <button type="button" onClick={onClick} className="save-button" disabled={roomId === null}>저장</button>
