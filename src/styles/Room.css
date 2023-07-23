@@ -78,14 +78,7 @@ main {
     background-size: contain;
 }
 
-.back-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.chevron-right {
-    width: 1.5rem;
-    height: 1.2rem;
-    background: url(../../public/images/chevron-right.svg) no-repeat;
-    background-size: contain;
+.room-canvas-wrapper {
+    width: 100%;
+    flex-grow: 1;
 }
