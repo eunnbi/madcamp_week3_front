@@ -101,7 +101,7 @@ const AuthPage = () => {
             <form className="auth-form" onSubmit={onSubmit}>
                 <div className="auth-box">
                     <div className={ message ? "input-box error": " input-box"}>
-                        <input placeholder="이름을 입력해주세요" onChange={onChange} value={nickname} />
+                        <input placeholder="이름을 입력해주세요" onChange={onChange} value={nickname} autoFocus />
                         {isRegister && <button type="button" className="check-button" onClick={checkDuplicate}>중복확인</button>}
                     </div>
                     {message.value && <p className={ `message ${message.type}`}>* {message.value}</p>}
