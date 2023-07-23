@@ -1,7 +1,25 @@
 import "./style.css";
+import { useEffect, useState } from "react";
+import {getRank} from "../../api/cherry";
 
-const CherryRank = () => {
-    const list = Array(3).fill("");
+const CherryRank = ({user}) => {
+    // const list = Array(3).fill("");
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        if(user != null) {
+            
+            getRank(user._id).then(({data}) => {
+                setList(data);
+            })
+        }
+    },[user])
+
+    if(user === null) {
+        return null;
+    }  
+
+
     return (
         <div className="white-box cherry-rank">
             <h2 className="white-box-title">Cherry Rank</h2>

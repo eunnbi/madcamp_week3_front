@@ -8,6 +8,7 @@ import CherryRank from "../components/CherryRank";
 import LogoutButton from "../components/LogoutButton";
 import NotFoundPage from "./NotFoundPage";
 import CherryDonateButton from "../components/CherryDonateButton";
+import MusicPlayer from "../components/Music";
 
 import "../styles/Room.css";
 
@@ -53,6 +54,10 @@ const RoomPage = () => {
         <main>
             <div className="left-section">
                 <UserInfo user={user} isMyRoom={isMyRoom} />
+                <div className="room-music-box">
+                    <MusicPlayer />
+                </div>
+                
                 {isMyRoom && (
                     <div className="room-button-box">
                         <button className="white-box"><span className="room-bg" />방꾸미기</button>
@@ -67,8 +72,8 @@ const RoomPage = () => {
                 </div>
                 <div>
                     <FindUser />
-                    <CommentList />
-                    <CherryRank />
+                    <CommentList user={user}/>
+                    <CherryRank user={user}/>
                     {!isMyRoom &&  <CherryDonateButton />}
                 </div>
             </div>
