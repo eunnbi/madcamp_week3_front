@@ -67,3 +67,7 @@ main {
     background-size: contain;
 }
 
+.room-canvas-wrapper {
+    width: 100%;
+    flex-grow: 1;
+}

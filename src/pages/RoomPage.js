@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUser } from "../api/user";
+import { getRoom } from "../api/room";
 import UserInfo from "../components/UserInfo";
 import FindUser from "../components/FindUser";
 import CommentList from "../components/CommentList";
@@ -8,9 +9,10 @@ import CherryRank from "../components/CherryRank";
 import LogoutButton from "../components/LogoutButton";
 import NotFoundPage from "./NotFoundPage";
 import CherryDonateButton from "../components/CherryDonateButton";
-
-import "../styles/Room.css";
+import RoomCanvas from "../components/RoomCanvas"
 import GotoMyRoomButton from "../components/GotoMyRoomButton";
+import "../styles/Room.css";
+
 
 
 const RoomPage = () => {
@@ -21,6 +23,7 @@ const RoomPage = () => {
     const navigate = useNavigate();
     const loginUser = value === null ? value : JSON.parse(value);
     const [user, setUser] = useState(null);
+    const [roomId, setRoomId] = useState(null);
     const isMyRoom = name === null || (user != null && user.name === loginUser.name);
     let finalName = null;
     if (name != null) finalName = name;
@@ -42,6 +45,13 @@ const RoomPage = () => {
             navigate("/")
         }
     }, [finalName]);
+    useEffect(() => {
+        if (user != null) {
+            getRoom(user._id).then(({ data }) => {
+                setRoomId(data._id)
+            })
+        }
+    }, [user])
     if (!isMyRoom && user === null) {
         return (
             <NotFoundPage />
@@ -50,7 +60,8 @@ const RoomPage = () => {
     return (
         <main>
             <div className="left-section">
-                <UserInfo user={user} isMyRoom={isMyRoom} />
+                <UserInfo user={(value != null && name == null) ? loginUser : user} isMyRoom={isMyRoom} />
+                <RoomCanvas roomId={roomId} />
                 {isMyRoom && (
                     <div className="room-button-box">
                         <button className="white-box" onClick={() => navigate("/room/decoration")}>
