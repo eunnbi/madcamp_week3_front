@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getRoom = async (id) => {
+export const getRoom = async (userId) => {
     const data = await axios.post("/api/room/getRoom", {
-        userId: id
+        userId
     });
     return data;
 }

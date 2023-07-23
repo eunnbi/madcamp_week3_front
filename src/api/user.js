@@ -6,3 +6,10 @@ export const getUser = async (name) => {
     });
     return data;
 }
+
+export const checkDuplicate = async (name) => {
+    const data = await axios.post("/api/user/checkDuplicate", {
+        name
+    });
+    return data;
+}

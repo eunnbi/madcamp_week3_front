@@ -9,10 +9,10 @@ import CherryRank from "../components/CherryRank";
 import LogoutButton from "../components/LogoutButton";
 import NotFoundPage from "./NotFoundPage";
 import CherryDonateButton from "../components/CherryDonateButton";
+import MusicPlayer from "../components/Music";
 import RoomCanvas from "../components/RoomCanvas"
 import GotoMyRoomButton from "../components/GotoMyRoomButton";
 import "../styles/Room.css";
-
 
 
 const RoomPage = () => {
@@ -62,6 +62,9 @@ const RoomPage = () => {
             <div className="left-section">
                 <UserInfo user={(value != null && name == null) ? loginUser : user} isMyRoom={isMyRoom} />
                 <RoomCanvas roomId={roomId} />
+                <div className="room-music-box">
+                    <MusicPlayer />
+                </div>
                 {isMyRoom && (
                     <div className="room-button-box">
                         <button className="white-box" onClick={() => navigate("/room/decoration")}>
@@ -73,7 +76,7 @@ const RoomPage = () => {
                             아바타
                         </button>
                     </div>
-                )}
+                )}    
             </div>
             <div className="right-section">
                 <div className="top-row">
@@ -82,8 +85,8 @@ const RoomPage = () => {
                 </div>
                 <div>
                     <FindUser />
-                    <CommentList />
-                    <CherryRank />
+                    <CommentList user={user}/>
+                    <CherryRank user={user}/>
                     {!isMyRoom &&  <CherryDonateButton />}
                 </div>
             </div>
