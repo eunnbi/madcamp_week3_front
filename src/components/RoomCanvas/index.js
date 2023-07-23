@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { roomFurnitureListState } from '../../store/furniture';
 import axios from 'axios';
 
-const RoomCanvas = ({ roomId }) => {
+const RoomCanvas = ({ roomId, draggable }) => {
     const [{ list: roomFurnitureList }, setRoomFurnitureList] = useRecoilState(roomFurnitureListState);
     const stage = useRef(null);
     const [size, setSize] = useState({
@@ -87,7 +87,7 @@ const RoomCanvas = ({ roomId }) => {
                 return (
                     <Image
                         key={furniture.id}
-                        draggable
+                        draggable={draggable}
                         image={image} 
                         x={furniture.x} 
                         y={furniture.y}
@@ -100,6 +100,10 @@ const RoomCanvas = ({ roomId }) => {
             </Layer>
       </Stage>
     )
+}
+
+RoomCanvas.defaultProps = {
+    draggable: true
 }
 
 export default RoomCanvas;
