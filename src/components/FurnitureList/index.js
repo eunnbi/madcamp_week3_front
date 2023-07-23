@@ -3,8 +3,10 @@ import CommonItem from "../CommonItem";
 import { roomFurnitureListState } from "../../store/furniture";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Skeleton from "../Skeleton";
 
 const FurnitureList = ({ user }) => {
+    const [loading, setLoading] = useState(true);
     const [list, setList] = useState([]);
     const setRoomFurnitureList = useSetRecoilState(roomFurnitureListState);
     const onClick = (itemImagePath, furnitureId) => () => {
@@ -20,19 +22,31 @@ const FurnitureList = ({ user }) => {
         }))
     }
     useEffect(() => {
+        setLoading(true);
         axios.post("/api/furniture/getMyFurniture", {
             userId: user._id
         }).then(({ data }) => {
             setList(data);
-            console.log(data)
+            setLoading(false);
         }).catch((e) => {
             console.log(e)
         })
     }, [])
+
+    if (loading) {
+        return (
+            <div className="white-box">
+                <h2 className="white-box-title">내 가구</h2>
+                <ul className="item-list">
+                    {Array(3).fill("").map(() => <Skeleton width="100%" height="150px" />)}
+                </ul>
+            </div>
+        )
+    }
     return (
         <div className="white-box">
             <h2 className="white-box-title">내 가구</h2>
-            {list.length === 0 ? (
+            {!loading && list.length === 0 ? (
                 <p className="empty-text">내 가구가 없습니다.</p>
             ) : (
                 <ul className="item-list">
