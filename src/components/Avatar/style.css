@@ -1,0 +1,148 @@
+.container {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+  }
+
+.container img {
+    max-width: 100px;
+    max-width: 100px;
+}
+/* 
+.speech-bubble {
+    position: absolute;
+    top: 5px;
+    left: 100px;
+    background-color: transparent;
+    display: inline-block;
+    padding: 10px 20px;
+    border-image-source: url('../../../public/images/chatbubble.png');
+    border-image-slice: 30% 30% 50% 30% fill;
+    border-image-repeat: round round;
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 38px;
+    box-sizing: content-box;
+    word-break: break-all;
+  }
+  
+  .speech-bubble p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.3;
+  } */
+
+  .editable {
+    cursor: pointer;
+  }
+  
+  /* .editing {
+    background-color: #f9f9f9;
+  }
+  
+  .editing input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+  } */
+
+
+
+
+  /* 'silkscreen' font */
+/* author: Jason Aleksandr Kottke */
+/* //www.dafont.com/silkscreen.font */
+@font-face {font-family:"silkscreen"; src: url('https://dl.dropbox.com/s/l0frac4d7bz3zx6/silkscreen.ttf');}
+
+/* colors */
+:root {
+	--Speech-Bubble-Border:#222;
+	--Speech-Bubble-Background:#fcfcfc;
+	--Speech-Bubble-Text:#000;
+}
+
+.speech-bubble {
+	width:400px;
+}
+
+#bub-part-a {
+	margin-left:6px;
+	width:calc(100% - 12px);
+	height:2px;
+	background:var(--Speech-Bubble-Border);
+}
+
+#bub-part-b {
+	margin-left:4px;
+	width:calc(100% - 8px);
+	height:2px;
+	background:var(--Speech-Bubble-Background);
+	border-left:2px solid var(--Speech-Bubble-Border);
+	border-right:2px solid var(--Speech-Bubble-Border);
+}
+
+#bub-part-c {
+	margin-left:2px;
+	width:calc(100% - 4px);
+	height:2px;
+	background:var(--Speech-Bubble-Background);
+	border-left:2px solid var(--Speech-Bubble-Border);
+	border-right:2px solid var(--Speech-Bubble-Border);
+}
+
+#speech-txt {
+	width:calc(100%);
+	padding:10px;
+	font-family:silkscreen;
+	font-size:19px;
+	color:var(--Speech-Bubble-Text);
+	text-align:center;
+    word-break: break-all;
+	background:var(--Speech-Bubble-Background);
+	border-left:2px solid var(--Speech-Bubble-Border);
+	border-right:2px solid var(--Speech-Bubble-Border);
+}
+
+#speech-arrow {
+	margin-top:-2px;
+	margin-left:110px;
+}
+
+#arrow-w {
+	width:8px;
+	height:8px;
+	background:var(--Speech-Bubble-Background);
+	border-left:2px solid var(--Speech-Bubble-Border);
+	border-right:2px solid var(--Speech-Bubble-Border);
+}
+
+#arrow-x {
+	width:6px;
+	height:2px;
+	background:var(--Speech-Bubble-Background);
+	border-left:2px solid var(--Speech-Bubble-Border);
+	border-right:2px solid var(--Speech-Bubble-Border);
+}
+
+#arrow-y {
+	margin-left:-2px;
+	width:6px;
+	height:2px;
+	background:var(--Speech-Bubble-Background);
+	border-left:2px solid var(--Speech-Bubble-Border);
+	border-right:2px solid var(--Speech-Bubble-Border);
+}
+
+#arrow-z {
+	margin-left:-2px;
+	width:8px;
+	height:2px;
+	background:var(--Speech-Bubble-Border);
+}
+
+
+
+
+  

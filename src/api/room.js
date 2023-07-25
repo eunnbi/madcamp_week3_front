@@ -6,3 +6,10 @@ export const getRoom = async (userId) => {
     });
     return data;
 }
+
+export const setGreeting = async (roomId, greeting) => {
+    const data = await axios.post("/api/room/setGreeting", {
+        roomId, greeting
+    });
+    return data;
+}
