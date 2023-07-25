@@ -9,6 +9,9 @@
     max-width: 100px;
     max-width: 100px;
 }
+.container:hover .speech-bubble {
+	display: block;
+}
 /* 
 .speech-bubble {
     position: absolute;
@@ -64,8 +67,16 @@
 }
 
 .speech-bubble {
-	width:160px;
-	position: relative;
+	width: 160px;
+	position: absolute;
+	top: 0;
+	transform: translateY(-120%);
+	margin-bottom: 1rem;
+	display: block;
+
+}
+.speech-bubble.hidden {
+	display: none;
 }
 
 #bub-part-a {
@@ -95,7 +106,7 @@
 
 #speech-txt {
 	width:calc(100%);
-	padding:10px;
+	padding: 0.125rem 0.625rem;
 	font-family:silkscreen;
 	font-size:19px;
 	color:var(--Speech-Bubble-Text);
@@ -105,6 +116,7 @@
 	border-left:2px solid var(--Speech-Bubble-Border);
 	border-right:2px solid var(--Speech-Bubble-Border);
 }
+
 
 #speech-arrow {
 	position: absolute;

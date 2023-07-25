@@ -26,7 +26,7 @@ const RoomPage = () => {
     const navigate = useNavigate();
     const loginUser = value === null ? value : JSON.parse(value);
     const [user, setUser] = useState(null);
-    const [roomId, setRoomId] = useState(null);
+    const [room, setRoom] = useState(null);
     const isMyRoom = name === null || (user != null && user.name === loginUser.name);
     let finalName = null;
     if (name != null) finalName = name;
@@ -51,7 +51,8 @@ const RoomPage = () => {
     useEffect(() => {
         if (user != null) {
             getRoom(user._id).then(({ data }) => {
-                setRoomId(data._id)
+                setRoom(data)
+                console.log(data)
             })
         }
     }, [user])
@@ -65,9 +66,9 @@ const RoomPage = () => {
             <div className="left-section">
                 <UserInfo user={user} isMyRoom={isMyRoom} />
                 <div className="room-canvas-wrapper">
-                    <RoomCanvas roomId={roomId} />
+                    <RoomCanvas roomId={room ? room._id : null} />
                     <div className="room-avatar-wrapper">
-                        <Avatar user = {user}/>
+                        <Avatar user = {user} room={room}/>
                     </div>
                 </div>
                 <div className="bottom-box">
@@ -85,7 +86,7 @@ const RoomPage = () => {
                                 아바타
                             </button>
                         </div>
-                    ) : <CommentForm roomId={roomId} authorId={loginUser._id} userId={user ? user._id : null} />}  
+                    ) : <CommentForm roomId={room ? room._id : null} authorId={loginUser._id} userId={user ? user._id : null} />}  
                 </div>
             </div>
             <div className="right-section">
