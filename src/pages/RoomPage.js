@@ -66,12 +66,10 @@ const RoomPage = () => {
                 <UserInfo user={user} isMyRoom={isMyRoom} />
                 <div className="room-canvas-wrapper">
                     <RoomCanvas roomId={roomId} />
+                    <div className="room-avatar-wrapper">
+                        <Avatar user = {user}/>
                     </div>
-                
-                <div>
-                    <Avatar user = {user}/>
                 </div>
-                
                 <div className="bottom-box">
                     <div className="room-music-box">
                         <MusicPlayer />

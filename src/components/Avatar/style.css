@@ -64,7 +64,8 @@
 }
 
 .speech-bubble {
-	width:400px;
+	width:160px;
+	position: relative;
 }
 
 #bub-part-a {
@@ -106,8 +107,10 @@
 }
 
 #speech-arrow {
-	margin-top:-2px;
-	margin-left:110px;
+	position: absolute;
+	bottom: 2px;
+	left: 50%;
+	transform: translate(150%, 100%);
 }
 
 #arrow-w {
@@ -137,7 +140,7 @@
 
 #arrow-z {
 	margin-left:-2px;
-	width:8px;
+	width:6px;
 	height:2px;
 	background:var(--Speech-Bubble-Border);
 }
