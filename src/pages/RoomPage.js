@@ -85,9 +85,9 @@ const RoomPage = () => {
                 </div>
                 <div>
                     <FindUser />
-                    <CommentList user={user}/>
-                    <CherryRank user={user}/>
-                    {!isMyRoom &&  <CherryDonateButton />}
+                    <CommentList user={(value != null && name == null) ? loginUser : user}/>
+                    <CherryRank user={(value != null && name == null) ? loginUser : user}/>
+                    {!isMyRoom &&  <CherryDonateButton userId={user._id} sponsorId={loginUser._id} />}
                 </div>
             </div>
         </main>

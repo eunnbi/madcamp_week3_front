@@ -1,30 +1,35 @@
 import "./style.css";
-import { useEffect, useState } from "react";
-import {getRank} from "../../api/cherry";
+import { getRank } from "../../api/cherry";
+import { useQuery } from "@tanstack/react-query";
+import Skeleton from "../Skeleton";
 
 const CherryRank = ({user}) => {
-    // const list = Array(3).fill("");
-    const [list, setList] = useState([]);
+    const { isLoading, data } = useQuery({
+        queryKey: ["rank", user ? user._id : null],
+        queryFn: async () => {
+            if (user != null) {
+                console.log(user);
+                const { data } = await getRank(user._id);
+                return data;
+            }
+            return [];
+        },
+        initialData: []
+    })
 
-    useEffect(() => {
-        if(user != null) {
-            
-            getRank(user._id).then(({data}) => {
-                setList(data);
-            })
-        }
-    },[user])
-
-    if(user === null) {
-        return null;
-    }  
-
-
+    if (user !== null || !isLoading) {
+        <div className="white-box cherry-rank">
+            <h2 className="white-box-title">Cherry Rank</h2>
+            <ul className="white-list-box">
+                {Array(3).fill("").map((_, index) => <Skeleton width="100%" height="2rem" key={index} />)}
+            </ul>
+        </div>
+    }
     return (
         <div className="white-box cherry-rank">
             <h2 className="white-box-title">Cherry Rank</h2>
             <ul className="white-list-box">
-                {list.map((item, index) => <Item rank={index + 1} name={"박윤배"} cherry={300} />)}
+                {data.map((item, index) => <Item rank={index + 1} name={item.sponsorName} cherry={item.cherry} />)}
             </ul>
         </div>
     )
