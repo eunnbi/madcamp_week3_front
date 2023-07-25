@@ -112,5 +112,5 @@ main::-webkit-scrollbar {
     position: absolute;
     bottom: 10%;
     left: 50%;
-    transform: translateX(-30%);
+    transform: translateX(-50%);
 }

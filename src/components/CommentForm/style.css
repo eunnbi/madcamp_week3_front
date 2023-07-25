@@ -1,9 +1,9 @@
-form {
+.comment-form {
     display: flex;
     align-items: center;
     gap: 0.125rem;
 }
-input {
+.comment-input {
     padding: 0.5rem 1rem;
     border-radius: 18px;
     background-color: transparent;

@@ -8,7 +8,6 @@ const CherryRank = ({user}) => {
         queryKey: ["rank", user ? user._id : null],
         queryFn: async () => {
             if (user != null) {
-                console.log(user);
                 const { data } = await getRank(user._id);
                 return data;
             }

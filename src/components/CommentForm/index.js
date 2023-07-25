@@ -24,8 +24,8 @@ const CommentForm = ({ roomId, userId, authorId }) => {
         }
     }
     return (
-        <form onSubmit={onSubmit}>
-            <input placeholder="방명록을 남겨주세요" value={value} onChange={onChange}  />
+        <form onSubmit={onSubmit} className="comment-form">
+            <input placeholder="방명록을 남겨주세요" value={value} onChange={onChange} className="comment-input"  />
             <button className="send-button" type="submit"><span className="send-icon"></span></button>
         </form>
     )
