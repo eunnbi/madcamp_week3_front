@@ -12,6 +12,7 @@ import CherryDonateButton from "../components/CherryDonateButton";
 import MusicPlayer from "../components/Music";
 import RoomCanvas from "../components/RoomCanvas"
 import GotoMyRoomButton from "../components/GotoMyRoomButton";
+import Avatar from "../components/Avatar";
 import "../styles/Room.css";
 
 
@@ -63,7 +64,12 @@ const RoomPage = () => {
                 <UserInfo user={user} isMyRoom={isMyRoom} />
                 <div className="room-canvas-wrapper">
                     <RoomCanvas roomId={roomId} />
+                    </div>
+                
+                <div>
+                    <Avatar user = {user}/>
                 </div>
+                
                 <div className="bottom-box">
                     <div className="room-music-box">
                         <MusicPlayer />
@@ -89,11 +95,15 @@ const RoomPage = () => {
                 </div>
                 <div>
                     <FindUser />
+
                     <CommentList user={(value != null && name == null) ? loginUser : user}/>
                     <CherryRank user={(value != null && name == null) ? loginUser : user}/>
                     {!isMyRoom &&  <CherryDonateButton userId={user._id} sponsorId={loginUser._id} />}
+
+                    
                 </div>
             </div>
+            
         </main>
     )
 }
