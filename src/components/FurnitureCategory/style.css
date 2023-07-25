@@ -1,0 +1,23 @@
+.category-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    flex-wrap: wrap;
+    gap: .75rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.category-item {
+    background-color: #EEEDE7;
+    border-radius: 8px;
+    padding: .4375rem .9375rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.category-item.selected {
+    background-color: black;
+    color: white;
+    font-weight: 500;
+}
+
