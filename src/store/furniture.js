@@ -8,3 +8,8 @@ export const roomFurnitureState = atom({
         initialList: []
     }
 })
+
+export const saveLoading = atom({
+    key: "saveLoading",
+    default: false
+})

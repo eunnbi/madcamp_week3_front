@@ -9,8 +9,11 @@ import RoomCanvas from "../components/RoomCanvas";
 import RoomSaveButton from "../components/RoomSaveButton";
 import "../styles/Room.css"
 import { getRoom } from "../api/room";
+import { useRecoilValue } from "recoil";
+import { saveLoading } from "../store/furniture";
 
 const RoomDecorationPage = () => {
+    const loading = useRecoilValue(saveLoading);
     const value = localStorage.getItem("USER");
     const navigate = useNavigate();
     if (value == null) {
@@ -47,6 +50,7 @@ const RoomDecorationPage = () => {
                     <FurnitureShop user={user} />
                 </div>
             </div>
+            <div className={loading ? "loading" : ""}></div>
         </main>
     )
 }
