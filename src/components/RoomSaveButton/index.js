@@ -12,6 +12,7 @@ const RoomSaveButton = ({ roomId }) => {
         const list = roomFurniture.list.map((item, index) => ({...item, z: index + 1 }));
         for (let i = 0; i < list.length; i++) {
             try {
+                
                 const { data } = await axios.post("/api/furniture/saveFurniturePosition", {
                     roomId,
                     furnitureId: list[i].furnitureId,

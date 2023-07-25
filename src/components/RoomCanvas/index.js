@@ -4,19 +4,16 @@ import { useRecoilState } from 'recoil';
 import { roomFurnitureState } from '../../store/furniture';
 import axios from 'axios';
 
+const emptyRoomImage = new window.Image();
+emptyRoomImage.src = "/images/emptyRoom.png";
+
 const RoomCanvas = ({ roomId, draggable }) => {
     const [{ list: roomFurnitureList }, setRoomFurnitureState] = useRecoilState(roomFurnitureState);
     const stage = useRef(null);
     const [size, setSize] = useState({
         width: 0,
         height: 0
-    })
-    const resizeCanvas = (canvas) => {
-        setSize({
-            width: canvas.parentElement.clientWidth - 10,
-            height: canvas.parentElement.clientHeight - 31
-        })
-    }
+    });
     const onDragStart = (id) => (e) => {
         const list = roomFurnitureList.slice();
         const item = list.find((item) => item.id === id);
@@ -51,13 +48,20 @@ const RoomCanvas = ({ roomId, draggable }) => {
         }))
     }
     useEffect(() => {
-        const canvas = document.querySelector("#myCanvas");
+        const canvas = document.querySelector(".room-canvas-wrapper");
         if (canvas === null) return;
-        resizeCanvas(canvas);
-        const onResize = () => resizeCanvas(canvas);
-        window.addEventListener("resize", onResize);
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+              const { width, height } = entry.contentRect;
+              setSize({
+                width,
+                height
+               })
+            }
+          });
+        observer.observe(canvas)
         return () => {
-            window.removeEventListener("resize", onResize)
+            observer.unobserve(canvas)
         }
     }, []);
     useEffect(() => {
@@ -85,22 +89,23 @@ const RoomCanvas = ({ roomId, draggable }) => {
     return (
         <Stage width={size.width} height={size.height} id='myCanvas' ref={stage}>
             <Layer>
-            {roomFurnitureList.map(furniture => {
-                const image = new window.Image();
-                image.src = furniture.imagePath;
-                return (
-                    <Image
-                        key={furniture.id}
-                        draggable={draggable}
-                        image={image} 
-                        x={furniture.x} 
-                        y={furniture.y}
-                        onDragStart={onDragStart(furniture.id)}
-                        onDragEnd={onDragEnd(furniture.id)}
-                        onDblClick={draggable ? onDoubleClick(furniture.id) : undefined}
-                    />
-                )
-            })}
+                <Image image={emptyRoomImage} draggable={false} x={size.width / 2 - 200} y={size.height / 2 - 200}  />
+                {roomFurnitureList.map(furniture => {
+                    const image = new window.Image();
+                    image.src = furniture.imagePath;
+                    return (
+                        <Image
+                            key={furniture.id}
+                            draggable={draggable}
+                            image={image} 
+                            x={furniture.x} 
+                            y={furniture.y}
+                            onDragStart={onDragStart(furniture.id)}
+                            onDragEnd={onDragEnd(furniture.id)}
+                            onDblClick={draggable ? onDoubleClick(furniture.id) : undefined}
+                        />
+                    )
+                })}
             </Layer>
       </Stage>
     )

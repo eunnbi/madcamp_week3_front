@@ -61,7 +61,9 @@ const RoomPage = () => {
         <main>
             <div className="left-section">
                 <UserInfo user={(value != null && name == null) ? loginUser : user} isMyRoom={isMyRoom} />
-                <RoomCanvas roomId={roomId} draggable={false} />
+                <div className="room-canvas-wrapper">
+                    <RoomCanvas roomId={roomId} />
+                </div>
                 <div className="room-music-box">
                     <MusicPlayer />
                 </div>

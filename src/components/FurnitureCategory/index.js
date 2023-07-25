@@ -1,5 +1,5 @@
 import "./style.css";
-const CATEGORY = ["베이직", "할로윈", "시골", "고3", "해변", "공주"];
+const CATEGORY = ["베이직", "해변", "고3", "할로윈", "공주", "시골"];
 
 const FurnitureCategory = ({ selected, onClick }) => {
     return (
