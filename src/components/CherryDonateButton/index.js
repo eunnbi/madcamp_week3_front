@@ -1,12 +1,37 @@
-import { useState } from "react";
+import { useRef, useState, useCallback } from "react";
+import { debounce } from "lodash";
 import "./style.css"
+import axios from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
-const CherryDonateButton = () => {
+const CherryDonateButton = ({ userId, sponsorId }) => {
     const [emoticons, setEmoticons] = useState([]);
+    const cherry = useRef(0);
+    const queryClient = useQueryClient();
 
     const handleClick = () => {
+        cherry.current++;
         setEmoticons([...emoticons, {}]);
+        callAddCherryAPI();
     };
+    const callAddCherryAPI = useCallback(
+		debounce(async () => {
+			try {
+				const response = await axios.post("/api/cherry/addCherry", {
+                    userId,
+                    sponsorId,
+                    cherry: cherry.current
+                })
+                cherry.current = 0;
+				console.log(response);
+                queryClient.invalidateQueries(["rank", userId]);
+			} catch (e) {
+				console.log(e);
+                cherry.current = 0;
+			}
+		}, 1000),
+		[],
+	);
     
     return (
         <div className="button-wrapper">
