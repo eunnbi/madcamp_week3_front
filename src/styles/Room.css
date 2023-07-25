@@ -110,7 +110,7 @@ main::-webkit-scrollbar {
 
 .room-avatar-wrapper {
     position: absolute;
-    top: 55%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-30%);
 }
