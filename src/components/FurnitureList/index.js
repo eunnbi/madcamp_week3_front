@@ -25,6 +25,7 @@ const FurnitureList = ({ user }) => {
     }, [selected])
     const onClickFurniture = (itemImagePath, furnitureId) => () => {
         setRoomFurnitureState((state) => ({
+            ...state,
             nextId: state.nextId + 1,
             list: state.list.concat([{
                 id: state.nextId,

@@ -60,23 +60,27 @@ const RoomPage = () => {
     return (
         <main>
             <div className="left-section">
-                <UserInfo user={(value != null && name == null) ? loginUser : user} isMyRoom={isMyRoom} />
-                <RoomCanvas roomId={roomId} draggable={false} />
-                <div className="room-music-box">
-                    <MusicPlayer />
+                <UserInfo user={user} isMyRoom={isMyRoom} />
+                <div className="room-canvas-wrapper">
+                    <RoomCanvas roomId={roomId} />
                 </div>
-                {isMyRoom && (
-                    <div className="room-button-box">
-                        <button className="white-box" onClick={() => navigate("/room/decoration")}>
-                            <span className="room-bg" />
-                            방꾸미기
-                        </button>
-                        <button className="white-box" onClick={() => navigate("/room/avatar")}>
-                            <span className="avatar-bg" />
-                            아바타
-                        </button>
+                <div className="bottom-box">
+                    <div className="room-music-box">
+                        <MusicPlayer />
                     </div>
-                )}    
+                    {isMyRoom && (
+                        <div className="room-button-box">
+                            <button className="white-box" onClick={() => navigate("/room/decoration")}>
+                                <span className="room-bg" />
+                                방꾸미기
+                            </button>
+                            <button className="white-box" onClick={() => navigate("/room/avatar")}>
+                                <span className="avatar-bg" />
+                                아바타
+                            </button>
+                        </div>
+                    )}  
+                </div>
             </div>
             <div className="right-section">
                 <div className="top-row">

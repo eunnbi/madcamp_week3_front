@@ -1,11 +1,10 @@
-import { useRecoilValue } from "recoil";
-import { roomFurnitureState } from "../../store/furniture";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { roomFurnitureState, saveLoading } from "../../store/furniture";
 import "./style.css";
 import axios from "axios";
-import { useState } from "react";
 
 const RoomSaveButton = ({ roomId }) => {
-    const [loading, setLoading] = useState(false);
+    const setLoading = useSetRecoilState(saveLoading);
     const roomFurniture = useRecoilValue(roomFurnitureState);
     const onClick = async () => {
         setLoading(true);
@@ -30,7 +29,6 @@ const RoomSaveButton = ({ roomId }) => {
             try {
                 const item = roomFurniture.initialList[i];
                 const index = roomFurniture.list.findIndex(furniture => furniture.id === item.id);
-                console.log(index);
                 if (index === -1) {
                     try {
                         const { data } = await axios.post("/api/furniture/deleteFurniturePosition", {
