@@ -11,8 +11,10 @@ import NotFoundPage from "./NotFoundPage";
 import CherryDonateButton from "../components/CherryDonateButton";
 import MusicPlayer from "../components/Music";
 import RoomCanvas from "../components/RoomCanvas"
+import CommentForm from "../components/CommentForm";
 import GotoMyRoomButton from "../components/GotoMyRoomButton";
 import "../styles/Room.css";
+
 
 
 const RoomPage = () => {
@@ -68,7 +70,7 @@ const RoomPage = () => {
                     <div className="room-music-box">
                         <MusicPlayer />
                     </div>
-                    {isMyRoom && (
+                    {isMyRoom ? (
                         <div className="room-button-box">
                             <button className="white-box" onClick={() => navigate("/room/decoration")}>
                                 <span className="room-bg" />
@@ -79,7 +81,7 @@ const RoomPage = () => {
                                 아바타
                             </button>
                         </div>
-                    )}  
+                    ) : <CommentForm roomId={roomId} authorId={loginUser._id} userId={user ? user._id : null} />}  
                 </div>
             </div>
             <div className="right-section">
