@@ -69,7 +69,6 @@ const RoomCanvas = ({ roomId, draggable }) => {
             axios.post("/api/furniture/getFurniturePosition", {
                 roomId
             }).then(({ data }) => {
-                console.log(data);
                 setRoomFurnitureState({
                     nextId: 1,
                     list: data.map((item) => ({
