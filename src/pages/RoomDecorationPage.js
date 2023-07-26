@@ -22,7 +22,7 @@ const RoomDecorationPage = () => {
         navigate("/");
     }
     const { data: user } = useQuery({
-        queryKey: ["user"],
+        queryKey: ["user", loginUser],
         queryFn: async () => {
             const { data } = await getUser(loginUser.name);
             return data;
@@ -30,7 +30,7 @@ const RoomDecorationPage = () => {
         initialData: loginUser
     })
     const { data: room } = useQuery({
-        queryKey: ["roomId"],
+        queryKey: ["roomId", loginUser],
         queryFn: async () => {
             const { data } = await getRoom(loginUser._id);
             return data;

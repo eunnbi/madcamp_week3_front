@@ -18,7 +18,7 @@ const AvatarPage = () => {
         navigate("/");
     }
     const { data: user } = useQuery({
-        queryKey: ["user"],
+        queryKey: ["user", loginUser],
         queryFn: async () => {
             const { data } = await getUser(loginUser.name);
             return data;
