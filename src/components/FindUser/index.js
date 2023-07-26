@@ -2,6 +2,7 @@ import "./style.css";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkDuplicate, getRandomUser } from "../../api/user";
+import { toast } from "react-toastify";
 
 const FindUser = () => {
     const [inputValue, setInputValue] = useState('');
@@ -14,20 +15,22 @@ const FindUser = () => {
     const handleButtonClick = () => {
         checkDuplicate(inputValue).then(({data})=>{
             if(!data.exists) {
-                alert("존재하지 않는 이름입니다 🥲");
+                toast.error("존재하지 않는 이름입니다")
             } else {
                 navigate(`/room?name=${inputValue}`); // 입력된 이름으로 /room?name=<name>로 이동합니다.
+                setInputValue("")
             }
         }).catch((e) => {
-            alert("존재하지 않는 이름입니다 🥲");
+            toast.error("존재하지 않는 이름입니다")
         }) 
     };
 
     const handleRandomButtonClick = () => {
         getRandomUser().then(({data}) => {
             navigate(`/room?name=${data.name}`);
+            setInputValue("")
         }).catch((e) => {
-            alert("에러 발생 ㅠㅠ 🥲");
+            console.log(e);
         })
     }
 

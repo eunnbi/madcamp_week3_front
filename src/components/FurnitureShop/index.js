@@ -5,7 +5,7 @@ import FurnitureCategory from "../FurnitureCategory";
 import axios from "axios";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import AlertDialog from "../AlertDialog";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const FurnitureShop = ({ user }) => {
     const queryClient = useQueryClient();
@@ -76,12 +76,6 @@ const FurnitureShop = ({ user }) => {
                 )}
             </div>
             <AlertDialog open={open} title={furniture ? `${furniture.name}을(를) 구매하시겠습니까?` : ''} handleClose={handleClose} onCancel={onCancel} onConfirm={onConfirm} />
-            <ToastContainer
-                position="top-right"
-                autoClose={2000}
-                newestOnTop={false}
-                theme="light"
-            />
         </>
 
     )

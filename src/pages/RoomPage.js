@@ -65,7 +65,7 @@ const RoomPage = () => {
             <div className="left-section">
                 <UserInfo user={user || null} isMyRoom={isMyRoom} />
                 <div className="room-canvas-wrapper">
-                    <RoomCanvas roomId={room ? room._id : null} />
+                    <RoomCanvas roomId={room ? room._id : null} draggable={false} />
                     <div className="room-avatar-wrapper">
                         <Avatar user={user || null} room={room || null} isMyRoom={isMyRoom}/>
                     </div>
