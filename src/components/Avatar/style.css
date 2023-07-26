@@ -50,12 +50,6 @@
 
 
 
-
-  /* 'silkscreen' font */
-/* author: Jason Aleksandr Kottke */
-/* //www.dafont.com/silkscreen.font */
-@font-face {font-family:"silkscreen"; src: url('https://dl.dropbox.com/s/l0frac4d7bz3zx6/silkscreen.ttf');}
-
 /* colors */
 :root {
 	--Speech-Bubble-Border:#222;
