@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { getUser } from "../api/user";
 import { getRoom } from "../api/room";
@@ -15,47 +14,47 @@ import CommentForm from "../components/CommentForm";
 import GotoMyRoomButton from "../components/GotoMyRoomButton";
 import Avatar from "../components/Avatar";
 import "../styles/Room.css";
-
+import { getLoggedInUser } from "../utils/auth";
+import { useQuery } from "@tanstack/react-query";
 
 
 const RoomPage = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const name = params.get('name');
-    const value = localStorage.getItem("USER");
     const navigate = useNavigate();
-    const loginUser = value === null ? value : JSON.parse(value);
-    const [user, setUser] = useState(null);
-    const [room, setRoom] = useState(null);
-    const isMyRoom = name === null || (user != null && user.name === loginUser.name);
+    const loginUser = getLoggedInUser();
     let finalName = null;
     if (name != null) finalName = name;
     else if (loginUser != null && loginUser.name) finalName = loginUser.name;
-    useEffect(() => {
-        if (value === null) {
-            navigate('/');
-        }
-        else if (finalName) {
-            getUser(finalName)
-            .then(({ data }) => {
-                setUser(data);
-            }).catch((e) => {
+    if (loginUser === null || finalName === null) {
+        navigate("/");
+    }
+    const { data: user } = useQuery({
+        queryKey: ["user", finalName],
+        queryFn: async () => {
+            try {
+                const { data } = await getUser(finalName);
+                return data;
+            }
+            catch(e) {
                 console.log(e);
-                setUser(null);
-            })
+                return null;
+            }
+            
+        },
+    })
+    const { data: room } = useQuery({
+        queryKey: ["room", user],
+        queryFn: async () => {
+            if (user != null) {
+                const { data } = await getRoom(user._id);
+                return data;
+            }
+            else return null;
         }
-        else {
-            navigate("/")
-        }
-    }, [finalName]);
-    useEffect(() => {
-        if (user != null) {
-            getRoom(user._id).then(({ data }) => {
-                setRoom(data)
-                console.log(data)
-            })
-        }
-    }, [user])
+    })
+    const isMyRoom = name === null || (user != null && user.name === loginUser.name);
     if (!isMyRoom && user === null) {
         return (
             <NotFoundPage />
@@ -64,11 +63,11 @@ const RoomPage = () => {
     return (
         <main>
             <div className="left-section">
-                <UserInfo user={user} isMyRoom={isMyRoom} />
+                <UserInfo user={user || null} isMyRoom={isMyRoom} />
                 <div className="room-canvas-wrapper">
                     <RoomCanvas roomId={room ? room._id : null} />
                     <div className="room-avatar-wrapper">
-                        <Avatar user = {user} room={room}/>
+                        <Avatar user={user || null} room={room || null} isMyRoom={isMyRoom}/>
                     </div>
                 </div>
                 <div className="bottom-box">
@@ -96,15 +95,11 @@ const RoomPage = () => {
                 </div>
                 <div>
                     <FindUser />
-
-                    <CommentList user={(value != null && name == null) ? loginUser : user}/>
-                    <CherryRank user={(value != null && name == null) ? loginUser : user}/>
-                    {!isMyRoom &&  <CherryDonateButton userId={user._id} sponsorId={loginUser._id} />}
-
-                    
+                    <CommentList user={user || null}/>
+                    <CherryRank user={user || null} />
+                    {!isMyRoom &&  <CherryDonateButton userId={user ? user._id : null} sponsorId={loginUser._id} />}
                 </div>
             </div>
-            
         </main>
     )
 }

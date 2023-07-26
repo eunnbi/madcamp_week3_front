@@ -2,19 +2,26 @@ import "./style.css";
 import React, { useState, useEffect, useRef } from 'react';
 import { getMyAvatarImagePath } from "../../api/avatar";
 import { setGreeting } from "../../api/room";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@mui/material";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const Avatar = ({ user, room }) => {
+const Avatar = ({ user, room, isMyRoom }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState(null);
     const bubbleRef = useRef(null);
     const [show, setShow] = useState(true);
     const [greetingMessage, setGreetingMessage] = useState( null);
-    const [avatarImagePath, getAvatarImagePath] = useState('');
-
-    const value = localStorage.getItem("USER");
-    const loginUser = value === null ? value : JSON.parse(value);
-    // const isMyRoom = (user != null && userId === loginUser._id);
-    const [isMyRoom, getIsMyRoom] = useState(false);
+    const { data } = useQuery({
+        queryKey: ["avatar image", user],
+        queryFn: async () => {
+            if (user !== null) {
+                const { data } = await getMyAvatarImagePath(user._id);
+                return data;
+            }
+            else return null;
+        }
+    })
 
     const handleDoubleClick = () => {
         if (isMyRoom) {
@@ -32,22 +39,12 @@ const Avatar = ({ user, room }) => {
       };
 
     useEffect(() => {
-        if(user != null) {
-            getMyAvatarImagePath(user._id).then(({data}) =>  {
-                getAvatarImagePath(data.avatarImagePath);
-            })
-            getIsMyRoom(user._id === loginUser._id);
-        }
-    }, [user])
-
-    useEffect(() => {
         if (room !== null) {
             setGreetingMessage(room.greeting);
             setEditedText(room.greetingMessage);
-            console.log(room.greeting);
             setTimeout(() => {
                 setShow(false);
-            }, 2000);
+            }, 3000);
         }
     }, [room])
 
@@ -86,7 +83,7 @@ const Avatar = ({ user, room }) => {
                 </div>
 
             </div>
-            <img src={avatarImagePath} alt="avatar" />
+            {data ? <LazyLoadImage src={data.avatarImagePath} alt="avatar" width={100} height={100} effect="blur" /> : <Skeleton variant="rounded" width={80} height={80}  /> }
         </div>
     )
 }

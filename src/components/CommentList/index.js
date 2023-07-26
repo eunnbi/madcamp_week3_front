@@ -3,6 +3,7 @@ import "./style.css";
 import { getComment } from "../../api/comment";
 import { getRoom } from "../../api/room";
 import { useQuery } from "@tanstack/react-query";
+import Skeleton from "@mui/material/Skeleton";
 
 const CommentList = ({ user }) => {
     const initialEndIndex = 3;
@@ -28,14 +29,23 @@ const CommentList = ({ user }) => {
         }  
     }
     if (user === null) {
-        return null;
+        return (
+            <div className="white-box">
+                <h2 className="white-box-title">방명록</h2>
+                <ul className="white-list-box">
+                    {Array(3).fill("").map((_, index) => <Skeleton variant="rounded" width="100%" height={24} key={index} />)}
+                </ul>
+            </div>
+        );
     }
     return (
         <div className="white-box">
             <h2 className="white-box-title">방명록</h2>
-            <ul className="white-list-box">
-                {data.slice(0, endIndex).map(item => <Item name={item.authorName} content={item.content} />)}
-            </ul>
+            {data.length === 0 ? <p className="empty-text">방명록이 없습니다 😢</p> : (
+                <ul className="white-list-box">
+                    {data.slice(0, endIndex).map(item => <Item name={item.authorName} content={item.content} />)}
+                </ul>
+            )}
             {data.length > initialEndIndex && <button className="more-button" onClick={showMoreContent}>{hasNextContent() ? "더보기" : "접기"}</button>}
         </div>
     )

@@ -1,49 +1,59 @@
-import "./style.css";
-import { useEffect, useState } from "react";
-import { getAvatar, getMyAvatar,setAvatar } from "../../api/avatar";
+import { getMyAvatar,setAvatar } from "../../api/avatar";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import Skeleton from "@mui/material/Skeleton";
+import CommonItem from "../CommonItem";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const MyAvatarList = ({ userId }) => {
-    const [myAvatarList, setMyAvatarList] = useState([]);
-    useEffect(() => {
-        getMyAvatar(userId).then(({data}) => {
-            setMyAvatarList(data);
-        })
-    }, []);
-
-    const Item = ({ name, itemImagePath , avatarId}) => {
-        const handleClick = () => {
-            alert(`${name}이가 적용되었습니다. `); // 클릭 이벤트를 처리하는 로직
-            setAvatar(userId, avatarId).then((data) => {
-                window.location.reload();
-            }).catch((e) => {
-                alert("error");
-            });
+    const queryClient = useQueryClient();
+    const { data: myAvatarList, isLoading } = useQuery({
+        queryKey: ["my avatar list"],
+        queryFn: async () => {
+            const { data } = await getMyAvatar(userId);
+            return data;
         }
-    
+    })
+    const handleClick = (name, avatarId) => async () => {
+        try {
+            const { data } = await setAvatar(userId, avatarId);
+            await queryClient.invalidateQueries(["avatar image"]);
+            toast.success(`\"${name}\"이(가) 적용되었습니다. `)
+        }
+        catch(e) {
+            console.log(e);
+        }
+    }
+    if (isLoading) {
         return (
-            <div className="avatar-item" onClick={handleClick}>
-                <img src={itemImagePath} alt={name} />
-                <p>{name}</p>
+            <div class="white-box">
+                <h2 className="white-box-title">내 아바타</h2>
+                <ul className="item-list">
+                    {Array(3).fill("").map((_, index) => <Skeleton variant="rounded" width="100%" height={150} key={index} />)}
+                </ul>
             </div>
         )
     }
 
     return (
-        <div class="white-box">
-            <h2 className="white-box-title">내 아바타</h2>
-            <ul className="avatar-wrapper" id="avatarContainer">
-                {myAvatarList.map((avatar, index) => (
-                <Item key={index} name={avatar.name} itemImagePath={avatar.itemImagePath} avatarId = {avatar._id} />
-            ))}
-            </ul>
-        </div>
+        <>
+            <div className="white-box">
+                <h2 className="white-box-title">내 아바타</h2>
+                {myAvatarList.length === 0 ? <p className="empty-text">아바타가 없습니다</p> : (
+                    <ul className="item-list">
+                        {myAvatarList.map(item => <CommonItem name={item.name} itemImagePath={item.itemImagePath} onClickItem={handleClick(item.name, item._id)} />)}
+                    </ul>
+                )}
+            </div>
+            <ToastContainer 
+                position="top-right"
+                autoClose={2000}
+                newestOnTop={false}
+                theme="light" 
+            />
+        </>
     )
-
-    
 }
-
-
 
 
 // Example usage of the Item component
