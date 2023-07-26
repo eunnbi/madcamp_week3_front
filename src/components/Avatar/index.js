@@ -11,7 +11,8 @@ const Avatar = ({ user, room, isMyRoom }) => {
     const [editedText, setEditedText] = useState(null);
     const bubbleRef = useRef(null);
     const [show, setShow] = useState(true);
-    const [greetingMessage, setGreetingMessage] = useState( null);
+    const [greetingMessage, setGreetingMessage] = useState(null);
+    const timer = useRef(null);
     const { data } = useQuery({
         queryKey: ["avatar image", user],
         queryFn: async () => {
@@ -37,12 +38,20 @@ const Avatar = ({ user, room, isMyRoom }) => {
           setIsEditing(false);
         }
       };
-
+    const handleMouseOver = () => {
+        clearTimeout(timer.current);
+        setShow(true)
+    }
+    const handleMouseLeave = () => {
+        timer.current = setTimeout(() => {
+            setShow(false)
+        }, 2000)
+    }
     useEffect(() => {
         if (room !== null) {
             setGreetingMessage(room.greeting);
             setEditedText(room.greetingMessage);
-            setTimeout(() => {
+            timer.current = setTimeout(() => {
                 setShow(false);
             }, 3000);
         }
@@ -51,7 +60,7 @@ const Avatar = ({ user, room, isMyRoom }) => {
     
 
     return (
-        <div className="container">
+        <div className="container" onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
             <div
                 className={`speech-bubble${isMyRoom ? ' editable' : ''}${show ? '' : ' hidden'}`}
                 onDoubleClick={handleDoubleClick}
@@ -62,12 +71,12 @@ const Avatar = ({ user, room, isMyRoom }) => {
 		    <div id="bub-part-c"></div>
             {isEditing ? (
                 <input
-                id = "speech-txt"
-                type="text"
-                value={editedText}
-                onChange={(e) => setEditedText(e.target.value)}
-                onKeyDown={handleKeyDown}
-                autoFocus
+                    id = "speech-txt"
+                    type="text"
+                    value={editedText}
+                    onChange={(e) => setEditedText(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    autoFocus
                 />
             ) : (
                 <div id = "speech-txt">{greetingMessage}</div>
