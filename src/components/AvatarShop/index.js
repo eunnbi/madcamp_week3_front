@@ -1,15 +1,16 @@
-import "./style.css";
-import { useEffect, useState } from "react";
 import { getAvatar, buyAvatar} from "../../api/avatar";
 import CommonItem from "../CommonItem";
+import Skeleton from "@mui/material/Skeleton";
+import { useQuery } from "@tanstack/react-query";
 
 const ShopAvatarList = ({userId}) => {
-    const [avatarList, setAvatarList] = useState([]);
-    useEffect(() => {
-        getAvatar(userId).then(({data}) => {
-            setAvatarList(data);
-        })
-    }, []);
+    const { data: avatarList, isLoading } = useQuery({
+        queryKey: ["shop avatar list"],
+        queryFn: async () => {
+            const { data } = await getAvatar(userId);
+            return data;
+        }
+    })
 
     const handleClick = (name, avatarId) => () => {
         if (window.confirm(`${name}을(를) 구매하시겠습니까?`)) {
@@ -20,12 +21,21 @@ const ShopAvatarList = ({userId}) => {
             })
         }
     }
-
+    if (isLoading) {
+        return (
+            <div class="white-box">
+                <h2 className="white-box-title">내 아바타</h2>
+                <ul className="item-list">
+                    {Array(3).fill("").map((_, index) => <Skeleton variant="rounded" width="100%" height={150} key={index} />)}
+                </ul>
+            </div>
+        )
+    }
     
     return (
         <div class="white-box">
             <h2 className="white-box-title">상점</h2>
-            <ul className="item-list" id="avatarContainer">
+            <ul className="item-list">
                 {avatarList.map((avatar, index) => (
                     <CommonItem 
                         key={index} 

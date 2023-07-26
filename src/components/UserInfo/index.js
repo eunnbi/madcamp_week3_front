@@ -1,16 +1,14 @@
+import Skeleton from "@mui/material/Skeleton";
 import "./style.css";
 
 const UserInfo = ({ user, isMyRoom }) => {
-    if (user === null) {
-        return null;
-    }
     return (
         <div className="userinfo-wrapper">
-            <h1 className="username">{user.name}</h1>
+            {user === null ? <Skeleton variant="rounded" width={83} height={54} /> : <h1 className="username">{user.name}</h1> }
             {isMyRoom && (
                 <>
                     <div className="line"></div>
-                    <div className="cherry">{user.cherry} <span className="cherry-bg"></span></div>
+                    <div className="cherry">{user === null ? <Skeleton variant="rounded" width={50} height={54} /> : user.cherry} <span className="cherry-bg"></span></div>
                 </>
             )}
         </div>

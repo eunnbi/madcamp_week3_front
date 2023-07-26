@@ -4,21 +4,22 @@
     gap: 2.875rem 1.25rem; /* 요소 사이의 간격 설정, 필요에 따라 조정 가능 */
 }
 
-.item {
+.common-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
 }
 
-.item .name {
+.common-item .name {
     color: black;
     font-size: 1rem;
     font-weight: 700;
     margin-top: 0.625rem;
+    text-align: center;
 }
 
-.item .cherry {
+.common-item .cherry {
     display: flex;
     align-items: center;
     gap: 0.2rem;
@@ -30,7 +31,7 @@
     margin-top: 0.2rem;
 }
 
-.item .cherry-bg {
+.common-item .cherry-bg {
     display: block;
     width: 1.25rem;
     height: 1.25rem;
@@ -38,9 +39,9 @@
     background-size: contain;
 }
   
-.item img {
-    width: 100px; /* 이미지의 크기 설정, 필요에 따라 조정 가능 */
-    height: 100px;
+.common-item img {
+    width: 100%;
+    height: 100%;
 }
   
 

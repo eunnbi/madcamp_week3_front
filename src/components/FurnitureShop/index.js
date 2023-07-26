@@ -1,25 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CommonItem from "../CommonItem";
-import Skeleton from "../Skeleton";
+import Skeleton from "@mui/material/Skeleton";
 import FurnitureCategory from "../FurnitureCategory";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const FurnitureShop = ({ user }) => {
-    const [loading, setLoading] = useState(true);
-    const [list, setList] = useState([])
     const [selected, setSelected] = useState(0);
-    useEffect(() => {
-        setLoading(true);
-        axios.post("/api/furniture/getFurniture", {
-            userId: user._id,
-            category: selected
-        }).then(({ data }) => {
-            setList(data)
-            setLoading(false);
-        }).catch((e) => {
-            console.log(e);
-        });
-    }, [selected])
+    const { data: list, isLoading } = useQuery({
+        queryKey: ["furniture shop", selected], 
+        queryFn: async () => {
+            const { data } = await axios.post("/api/furniture/getFurniture", {
+                userId: user._id,
+                category: selected
+            })
+            return data;
+        }
+    })
     const onClickCategory = (index) => () => {
         setSelected(index);
     }
@@ -40,13 +37,13 @@ const FurnitureShop = ({ user }) => {
         }
 
     }
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="white-box">
                 <h2 className="white-box-title">상점</h2>
                 <FurnitureCategory onClick={onClickCategory} selected={selected} />
                 <ul className="item-list">
-                    {Array(3).fill("").map(() => <Skeleton width="100%" height="150px" />)}
+                    {Array(3).fill("").map((_, index) => <Skeleton width="100%" height={150} key={index} />)}
                 </ul>
             </div>
         )
