@@ -28,6 +28,7 @@ const Avatar = ({ user, room, isMyRoom }) => {
         if (isMyRoom) {
           setIsEditing(true);
           setEditedText(editedText);
+          clearTimeout(timer.current);
         }
     };
 
