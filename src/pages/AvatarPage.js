@@ -26,7 +26,7 @@ const AvatarPage = () => {
         initialData: loginUser
     })
     const { data } = useQuery({
-        queryKey: ["avatar image"],
+        queryKey: ["avatar image", user],
         queryFn: async () => {
             const { data } = await getMyAvatarImagePath(user._id);
             return data;

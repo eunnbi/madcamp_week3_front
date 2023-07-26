@@ -6,12 +6,12 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import AlertDialog from "../AlertDialog";
 import { toast } from "react-toastify";
 
-const ShopAvatarList = ({userId}) => {
+const ShopAvatarList = ({ userId }) => {
     const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
     const [avatar, setAvatar] = useState(null);
     const { data: avatarList, isLoading } = useQuery({
-        queryKey: ["shop avatar list"],
+        queryKey: ["shop avatar list", userId],
         queryFn: async () => {
             const { data } = await getAvatar(userId);
             return data;

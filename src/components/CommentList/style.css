@@ -6,6 +6,7 @@
 
 .comment-item .content {
     word-break: break-all;
+    /* max-width: 300px; */
 }
 .name {
     color: black;

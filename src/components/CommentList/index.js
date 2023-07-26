@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 import { getComment } from "../../api/comment";
 import { getRoom } from "../../api/room";
@@ -12,12 +12,12 @@ const CommentList = ({ user }) => {
     const { data } = useQuery({
         queryKey: ["comment list", user ? user._id : null],
         queryFn: async () => {
-            if (user === null) return []
+            if (user === null) return null
             const { data } = await getRoom(user._id);
             const { data: list } = await getComment(data._id);
             return list;
         },
-        initialData: []
+        initialData: null
     })
     const hasNextContent = () => data.length > endIndex + 1;
     const showMoreContent = () => {
@@ -28,7 +28,7 @@ const CommentList = ({ user }) => {
             setEndIndex(initialEndIndex);
         }  
     }
-    if (user === null) {
+    if (user === null || !data) {
         return (
             <div className="white-box">
                 <h2 className="white-box-title">방명록</h2>
@@ -43,7 +43,7 @@ const CommentList = ({ user }) => {
             <h2 className="white-box-title">방명록</h2>
             {data.length === 0 ? <p className="empty-text">방명록이 없습니다 😢</p> : (
                 <ul className="white-list-box">
-                    {data.slice(0, endIndex).map(item => <Item name={item.authorName} content={item.content} />)}
+                    {data.slice(0, endIndex).map((item, index) => <Item name={item.authorName} content={item.content} key={index} />)}
                 </ul>
             )}
             {data.length > initialEndIndex && <button className="more-button" onClick={showMoreContent}>{hasNextContent() ? "더보기" : "접기"}</button>}
@@ -52,10 +52,17 @@ const CommentList = ({ user }) => {
 }
 
 const Item = ({ content, name }) => {
+    const [width, setWidth] = useState(0);
+    useEffect(() => {
+        const element = document.querySelector(".comment-item");
+        setWidth(element.parentElement.clientWidth);
+    }, []);
     return (
         <li className="comment-item">
             <span className="name">{name}</span>
-            <p className="content">{content}</p>
+            <p className="content" style={{
+                width
+            }}>{content}</p>
         </li>
     )
 }

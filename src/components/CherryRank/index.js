@@ -7,14 +7,14 @@ const CherryRank = ({ user }) => {
     const { data } = useQuery({
         queryKey: ["rank", user ? user._id : null],
         queryFn: async () => {
-            if (user === null) return [];
+            if (user === null) return null;
             const { data } = await getRank(user._id);
             return data;
         },
-        initialData: []
+        initialData: null
     })
 
-    if (user === null) {
+    if (user === null || !data) {
         return (
             <div className="white-box cherry-rank">
                 <h2 className="white-box-title">Cherry Rank</h2>
@@ -29,7 +29,7 @@ const CherryRank = ({ user }) => {
             <h2 className="white-box-title">Cherry Rank</h2>
             {data.length === 0 ? <p className="empty-text">체리를 기부한 사람이 없습니다. 😢</p> : (
                 <ul className="white-list-box">
-                    {data.map((item, index) => <Item rank={index + 1} name={item.sponsorName} cherry={item.cherry} />)}
+                    {data.map((item, index) => <Item rank={index + 1} name={item.sponsorName} cherry={item.cherry} key={index} />)}
                 </ul>
             )}
            

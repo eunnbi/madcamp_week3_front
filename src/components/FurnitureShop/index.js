@@ -13,7 +13,7 @@ const FurnitureShop = ({ user }) => {
     const [furniture, setFurniture] = useState(null);
     const [selected, setSelected] = useState(0);
     const { data: list, isLoading } = useQuery({
-        queryKey: ["furniture shop", selected], 
+        queryKey: ["furniture shop", selected, user], 
         queryFn: async () => {
             const { data } = await axios.post("/api/furniture/getFurniture", {
                 userId: user._id,

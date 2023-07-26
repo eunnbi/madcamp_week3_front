@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 const FurnitureList = ({ user }) => {
     const [selected, setSelected] = useState(0);
     const { data: list, isLoading } = useQuery({
-        queryKey: ["furniture list", selected],
+        queryKey: ["furniture list", selected, user],
         queryFn: async () => {
             const { data } = await  axios.post("/api/furniture/getMyFurniture", {
                 userId: user._id,

@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const MyAvatarList = ({ userId }) => {
     const queryClient = useQueryClient();
     const { data: myAvatarList, isLoading } = useQuery({
-        queryKey: ["my avatar list"],
+        queryKey: ["my avatar list", userId],
         queryFn: async () => {
             const { data } = await getMyAvatar(userId);
             return data;
@@ -26,7 +26,7 @@ const MyAvatarList = ({ userId }) => {
     }
     if (isLoading) {
         return (
-            <div class="white-box">
+            <div className="white-box">
                 <h2 className="white-box-title">내 아바타</h2>
                 <ul className="item-list">
                     {Array(3).fill("").map((_, index) => <Skeleton variant="rounded" width="100%" height={150} key={index} />)}
@@ -40,7 +40,7 @@ const MyAvatarList = ({ userId }) => {
             <h2 className="white-box-title">내 아바타</h2>
             {myAvatarList.length === 0 ? <p className="empty-text">아바타가 없습니다</p> : (
                 <ul className="item-list">
-                    {myAvatarList.map(item => <CommonItem name={item.name} itemImagePath={item.itemImagePath} onClickItem={handleClick(item.name, item._id)} />)}
+                    {myAvatarList.map((item, index) => <CommonItem key={index} name={item.name} itemImagePath={item.itemImagePath} onClickItem={handleClick(item.name, item._id)} />)}
                 </ul>
             )}
         </div>
