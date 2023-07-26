@@ -23,26 +23,23 @@ const RoomSaveButton = ({ roomId }) => {
             }
             catch(e) {
                 console.log(e);
+                setLoading(false);
             }
         }
         for (let i = 0; i < roomFurniture.initialList.length; i++) {
-            try {
-                const item = roomFurniture.initialList[i];
-                const index = roomFurniture.list.findIndex(furniture => furniture.id === item.id);
-                if (index === -1) {
-                    try {
-                        const { data } = await axios.post("/api/furniture/deleteFurniturePosition", {
-                            roomFurnitureId: item.id
-                        })
-                        console.log(data);
-                    }
-                    catch(e) {
-                        console.log(e)
-                    }
+            const item = roomFurniture.initialList[i];
+            const index = roomFurniture.list.findIndex(furniture => furniture.id === item.id);
+            if (index === -1) {
+                try {
+                    const { data } = await axios.post("/api/furniture/deleteFurniturePosition", {
+                        roomFurnitureId: item.id
+                    })
+                    console.log(data);
                 }
-            }
-            catch(e) {
-                console.log(e);
+                catch(e) {
+                    console.log(e)
+                    setLoading(false);
+                }
             }
         }
         setLoading(false);

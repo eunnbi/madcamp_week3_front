@@ -35,8 +35,9 @@ const FurnitureShop = ({ user }) => {
                 furnitureId: furniture._id
             })
             setOpen(false);
+            await queryClient.invalidateQueries(["user"]);
             await queryClient.invalidateQueries(["furniture list", selected]);
-            await queryClient.invalidateQueries(["furniture shop", selected])
+            await queryClient.invalidateQueries(["furniture shop", selected]);
             toast.success("구매 완료했습니다");
             console.log(data);
         }

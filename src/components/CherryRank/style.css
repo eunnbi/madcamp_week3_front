@@ -1,7 +1,7 @@
 .cherry-rank-item {
     display: flex;
     align-items: center;
-    gap: 3.375rem;
+    justify-content: space-between;
 }
 
 .rank-name {

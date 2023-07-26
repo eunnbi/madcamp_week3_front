@@ -27,6 +27,7 @@ const ShopAvatarList = ({userId}) => {
         try {
             const { data } = await buyAvatar(userId, avatar._id);
             setOpen(false);
+            await queryClient.invalidateQueries(["user"]);
             await queryClient.invalidateQueries(["my avatar list"]);
             await queryClient.invalidateQueries(["shop avatar list"])
             console.log(data);
