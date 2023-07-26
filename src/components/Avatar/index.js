@@ -28,7 +28,7 @@ const Avatar = ({ user, room, isMyRoom }) => {
         if (isMyRoom) {
           setIsEditing(true);
           setEditedText(editedText);
-          clearTimeout(timer.current);
+          if (timer.current !== null) clearTimeout(timer.current);
         }
     };
 
@@ -36,11 +36,11 @@ const Avatar = ({ user, room, isMyRoom }) => {
         if (isMyRoom && event.key === 'Enter') {
             setGreeting(room._id, editedText);
             setGreetingMessage(editedText);
-          setIsEditing(false);
+            setIsEditing(false);
         }
       };
     const handleMouseOver = () => {
-        clearTimeout(timer.current);
+        if (timer.current !== null) clearTimeout(timer.current);
         setShow(true)
     }
     const handleMouseLeave = () => {
