@@ -3,6 +3,10 @@
     flex-direction: column;
     gap: 0.25rem;
 }
+
+.comment-item .content {
+    word-break: break-all;
+}
 .name {
     color: black;
     font-size: 1rem;
@@ -15,3 +19,4 @@
     color: gray;
     margin-top: 2rem;
 }
+
