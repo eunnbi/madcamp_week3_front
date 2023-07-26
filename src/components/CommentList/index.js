@@ -46,7 +46,7 @@ const CommentList = ({ user }) => {
                     {data.slice(0, endIndex).map((item, index) => <Item name={item.authorName} content={item.content} key={index} />)}
                 </ul>
             )}
-            {data.length > initialEndIndex && <button className="more-button" onClick={showMoreContent}>{hasNextContent() ? "더보기" : "접기"}</button>}
+            {data.length >= initialEndIndex && <button className="more-button" onClick={showMoreContent}>{hasNextContent() ? "더보기" : "접기"}</button>}
         </div>
     )
 }
