@@ -30,7 +30,7 @@ const CherryDonateButton = ({ userId, sponsorId }) => {
                 cherry.current = 0;
 			}
 		}, 1000),
-		[],
+		[userId, sponsorId],
 	);
     
     return (

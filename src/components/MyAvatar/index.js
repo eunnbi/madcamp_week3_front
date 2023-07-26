@@ -1,10 +1,12 @@
 import { getMyAvatar,setAvatar } from "../../api/avatar";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Skeleton from "@mui/material/Skeleton";
 import CommonItem from "../CommonItem";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const MyAvatarList = ({ userId }) => {
+    const queryClient = useQueryClient();
     const { data: myAvatarList, isLoading } = useQuery({
         queryKey: ["my avatar list"],
         queryFn: async () => {
@@ -12,13 +14,15 @@ const MyAvatarList = ({ userId }) => {
             return data;
         }
     })
-    const handleClick = (name, avatarId, userId) => () => {
-        alert(`${name}이가 적용되었습니다. `); // 클릭 이벤트를 처리하는 로직
-        setAvatar(userId, avatarId).then((data) => {
-            window.location.reload();
-        }).catch((e) => {
-            alert("error");
-        });
+    const handleClick = (name, avatarId) => async () => {
+        try {
+            const { data } = await setAvatar(userId, avatarId);
+            await queryClient.invalidateQueries(["avatar image"]);
+            toast.success(`\"${name}\"이(가) 적용되었습니다. `)
+        }
+        catch(e) {
+            console.log(e);
+        }
     }
     if (isLoading) {
         return (
@@ -32,18 +36,23 @@ const MyAvatarList = ({ userId }) => {
     }
 
     return (
-        <div className="white-box">
-            <h2 className="white-box-title">내 아바타</h2>
-            {myAvatarList.length === 0 ? <p className="empty-text">아바타가 없습니다</p> : (
-                <ul className="item-list">
-                    {myAvatarList.map(item => <CommonItem name={item.name} itemImagePath={item.itemImagePath} onClickItem={handleClick(item.name, item._id)} />)}
-                </ul>
-            )}
-        </div>
-
+        <>
+            <div className="white-box">
+                <h2 className="white-box-title">내 아바타</h2>
+                {myAvatarList.length === 0 ? <p className="empty-text">아바타가 없습니다</p> : (
+                    <ul className="item-list">
+                        {myAvatarList.map(item => <CommonItem name={item.name} itemImagePath={item.itemImagePath} onClickItem={handleClick(item.name, item._id)} />)}
+                    </ul>
+                )}
+            </div>
+            <ToastContainer 
+                position="top-right"
+                autoClose={2000}
+                newestOnTop={false}
+                theme="light" 
+            />
+        </>
     )
-
-    
 }
 
 

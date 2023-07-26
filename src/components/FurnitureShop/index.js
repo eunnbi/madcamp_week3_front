@@ -3,9 +3,14 @@ import CommonItem from "../CommonItem";
 import Skeleton from "@mui/material/Skeleton";
 import FurnitureCategory from "../FurnitureCategory";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import AlertDialog from "../AlertDialog";
+import { ToastContainer, toast } from "react-toastify";
 
 const FurnitureShop = ({ user }) => {
+    const queryClient = useQueryClient();
+    const [open, setOpen] = useState(false);
+    const [furniture, setFurniture] = useState(null);
     const [selected, setSelected] = useState(0);
     const { data: list, isLoading } = useQuery({
         queryKey: ["furniture shop", selected], 
@@ -17,25 +22,36 @@ const FurnitureShop = ({ user }) => {
             return data;
         }
     })
+    const handleClose = () => {
+        setOpen(false)
+    }
+    const onCancel = () => {
+        setOpen(false)
+    }
+    const onConfirm = async () => {
+        try {
+            const { data } = await axios.post("/api/furniture/buyFurniture", {
+                userId: user._id,
+                furnitureId: furniture._id
+            })
+            setOpen(false);
+            await queryClient.invalidateQueries(["furniture list", selected]);
+            await queryClient.invalidateQueries(["furniture shop", selected])
+            toast.success("구매 완료했습니다");
+            console.log(data);
+        }
+        catch(e) {
+            console.log(e);
+            setOpen(false);
+            toast.error("너무 비싸요");
+        }
+    }
     const onClickCategory = (index) => () => {
         setSelected(index);
     }
-    const onClickItem = (name, furnitureId) => async () => {
-        try {
-            if (window.confirm(`${name}을(를) 구매하시겠습니까?`)) {
-                const { data } = await axios.post("/api/furniture/buyFurniture", {
-                    userId: user._id,
-                    furnitureId
-                })
-                console.log(data);
-                window.location.reload();
-            }
-        }
-        catch(e) {
-            console.log(e)
-            alert("너무 비싸요");
-        }
-
+    const onClickItem = (furniture) => async () => {
+        setOpen(true)
+        setFurniture(furniture)
     }
     if (isLoading) {
         return (
@@ -49,15 +65,25 @@ const FurnitureShop = ({ user }) => {
         )
     }
     return (
-        <div className="white-box">
-            <h2 className="white-box-title">상점</h2>
-            <FurnitureCategory onClick={onClickCategory} selected={selected} />
-            {list.length === 0 ? <p className="empty-text">가구가 없습니다.</p> : (
-                <ul className="item-list">
-                    {list.map(item => <CommonItem name={item.name} price={item.price} itemImagePath={item.imagePath} onClickItem={onClickItem(item.name, item._id)} />)}
-                </ul>
-            )}
-        </div>
+        <>
+            <div className="white-box">
+                <h2 className="white-box-title">상점</h2>
+                <FurnitureCategory onClick={onClickCategory} selected={selected} />
+                {list.length === 0 ? <p className="empty-text">가구가 없습니다.</p> : (
+                    <ul className="item-list">
+                        {list.map(item => <CommonItem key={item._id} name={item.name} price={item.price} itemImagePath={item.imagePath} onClickItem={onClickItem(item)} />)}
+                    </ul>
+                )}
+            </div>
+            <AlertDialog open={open} title={furniture ? `${furniture.name}을(를) 구매하시겠습니까?` : ''} handleClose={handleClose} onCancel={onCancel} onConfirm={onConfirm} />
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                newestOnTop={false}
+                theme="light"
+            />
+        </>
+
     )
 }
 

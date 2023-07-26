@@ -12,6 +12,7 @@ import { useRecoilValue } from "recoil";
 import { saveLoading } from "../store/furniture";
 import { useQuery } from "@tanstack/react-query";
 import { getLoggedInUser } from "../utils/auth";
+import { CircularProgress } from "@mui/material";
 
 const RoomDecorationPage = () => {
     const loading = useRecoilValue(saveLoading);
@@ -53,7 +54,9 @@ const RoomDecorationPage = () => {
                     <FurnitureShop user={user} />
                 </div>
             </div>
-            <div className={loading ? "loading" : ""}></div>
+            <div className={loading ? "loading" : "loading hidden"}>
+                <CircularProgress color="inherit" />
+            </div>
         </main>
     )
 }

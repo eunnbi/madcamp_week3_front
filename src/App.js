@@ -6,8 +6,10 @@ import RoomPage from './pages/RoomPage';
 import RoomDecorationPage from './pages/RoomDecorationPage';
 import AvatarPage from './pages/AvatarPage';
 import NotFoundPage from './pages/NotFoundPage';
-import "./styles/WhiteBox.css";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import "./styles/WhiteBox.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 const queryClient = new QueryClient();
 
