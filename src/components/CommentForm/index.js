@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./style.css"
 import axios from "axios";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+
 const CommentForm = ({ roomId, userId, authorId }) => {
     const [value, setValue] = useState("");
     const queryClient = useQueryClient();
@@ -10,6 +12,10 @@ const CommentForm = ({ roomId, userId, authorId }) => {
     }
     const onSubmit = async (e) => {
         e.preventDefault();
+        if (value === "") {
+            toast.warn("내용을 입력해주세요")
+            return;
+        }
         try {
             await axios.post("/api/comment/add", {
                 roomId,
