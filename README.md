@@ -1,9 +1,8 @@
 ![Group 962](https://github.com/eunnbi/madcamp_week3_front/assets/55349548/fe2f7661-e124-4e1d-9e71-7ac44d5f62a4)
 
-## 📎웹사이트
-
 - [🍒 GIVE ME CHERRY!](http://34.64.109.102:8080)
 - [👿 MAD STORE LINK](http://store.madcamp.io/details?id=33)
+- [🖥️ Backend Repository](https://github.com/eunnbi/madcamp_week3_back)
 
 ## 👥팀원
 강은비, 박윤배
