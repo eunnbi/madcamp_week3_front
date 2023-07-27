@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+![Group 962](https://github.com/eunnbi/madcamp_week3_front/assets/55349548/fe2f7661-e124-4e1d-9e71-7ac44d5f62a4)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 📎웹사이트
 
-## Available Scripts
+## [🍒 GIVE ME CHERRY!](http://34.64.109.102:8080)
+## [👿 MAD STORE LINK]()
 
-In the project directory, you can run:
+# 👥팀원
+#### 강은비, 박윤배
+# 🍒 체리 기부와 꾸미기를 통한 소셜 미니어처 방명록 서비스! 🍒
+GIVE ME CHERRY는 각자 자신의 방을 자유롭게 꾸미고, 다른 사람의 방에 놀러가 방명록을 남길 수 있는 색다른 소셜 미니어처 서비스입니다.
 
-### `npm start`
+우리의 서비스는 간단한 선순환을 기반으로 동작합니다. 먼저, 체리라는 화폐 단위를 사용해 다양한 방 꾸미기 요소들을 구매할 수 있습니다. 이 방 꾸미기 요소들은 개인적인 취향과 스타일을 반영해 방을 아름답고 독특하게 꾸밀 수 있도록 도와줍니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+하지만 주목할 점은 체리를 얻기 위해서는 다른 사용자들이 나의 방에 놀러와 체리 버튼을 눌러주어야 한다는 것입니다. 여러분이 먼저 놀러가 체리를 주다보면 상대방이 감동을 받아 내 방의 버튼을 눌러 체리를 주게 될 것입니다. 이것이 바로 선순환의 시작입니다! 방문한 사람들이 서로를 응원하고 격려하는 공간을 만들어 나가는 것이 목표입니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+우리는 사용자들 간의 교류를 장려하고, 서로의 창조성과 영감을 나누는 플랫폼으로서, 좋은 기운과 친밀함이 느껴지는 커뮤니티를 지향합니다. 친구들과 함께 시간을 보내고, 새로운 사람들과 친밀하게 소통하며, 서로의 방에 아름다운 기억과 이야기를 남기는 것을 즐길 수 있는 공간이 바로 체리룸입니다.
 
-### `npm test`
+소중한 사람들과 새로운 친구들과 함께 하며, 자신만의 창의적인 공간을 만들고 싶다면 지금 바로 체리룸에 가입해보세요! 자신의 방을 꾸미고, 따뜻한 방명록을 받으며, 함께 나누는 즐거움을 느껴보세요. GIVE ME CHERRY 에서 여러분을 기다리고 있습니다. GIVE ME CHERRY! 🍒
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 스크린샷
 
-### `npm run build`
+#### 라운지 화면 
+<img width="840" alt="스크린샷 2023-07-27 오후 1 57 57" src="https://github.com/eunnbi/madcamp_week3_front/assets/55349548/8e458d37-9ccb-4491-98a9-9b0f00dbca73">
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### 기능 
+로그인, 회원가입 가능
+회원가입을 누르고 원하는 이름을 입력하시고 중복확인 이후 회원가입 버튼을 누르면 회원가입이 완료됩니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 내 방
+<img width="840" alt="스크린샷 2023-07-27 오후 1 58 42" src="https://github.com/eunnbi/madcamp_week3_front/assets/55349548/fad2f48e-b3de-4dca-87d7-51dff8eb61b5">
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### 기능
+- 상단에서 현재 내가 가지고 있는 체리의 수를 확인할 수 있습니다.
+- 왼쪽 하단에서 BGM을 끄고 켤 수 있습니다. 
+- 아바타위의 말풍선을 더블클릭하여 인사말을 수정할 수 있습니다. 
+- 중앙 하단의 방꾸미기, 아바타 버튼을 클릭하여 내 방을 꾸미거나 아바타를 변경할 수 있습니다.
+- 파도타기 : 다른 사람의 방에 놀러가기
+이름을 입력한 뒤 화살표 버튼을 눌러 특정 인물의 방에 놀러가거나 랜덤 파도타기 버튼을 눌러 랜덤으로 선택된 방에 입장할 수 있습니다. 
+- 방명록 : 다른 사람들이 남긴 방명록을 확인할 수 있습니다.
+- Cherry Rank : 다른사람들이 기부한 체리의 개수와 등수를 확인할 수 있습니다. 
 
-### `npm run eject`
+#### 친구의 방
+<img width="840" alt="스크린샷 2023-07-27 오후 2 00 39" src="https://github.com/eunnbi/madcamp_week3_front/assets/55349548/9596b206-2954-4a88-b002-1ec33bb735e2">
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##### 기능
+- 체리버튼을 눌러 친구에게 체리를 줄 수 있습니다.
+- 중앙 하단에서 친구의 방에 방명록을 남길 수 있습니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 방 꾸미기
+<img width="840" alt="스크린샷 2023-07-27 오후 2 01 20" src="https://github.com/eunnbi/madcamp_week3_front/assets/55349548/8c79973a-293a-4a5d-9e81-f17f15146647">
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+##### 기능
+- 내가 가진 체리를 이용해 가구들을 구매할 수 있습니다.
+- 내 가구탬에서 내가 구매한 가구를 한번 클릭하면 방에 배치되고 드래그를 통하여 위치를 조정할 수 있습니다.
+- 이미 배치한 가구를 삭제하고 싶다면 가구를 더블클릭하면 가구가 사라집니다. 
+- 배치를 완료한뒤 저장하기를 누르면 수정사항이 저장됩니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 아바타
+<img width="840" alt="스크린샷 2023-07-27 오후 2 01 27" src="https://github.com/eunnbi/madcamp_week3_front/assets/55349548/e7907c9f-680c-4b34-b939-ca472bb25aed">
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+##### 기능
+- 상점에서 아바타를 구매할 수 있고 내 아바타 탭에서 구매한 아바타를 한번 클릭하면 적용됩니다. 
