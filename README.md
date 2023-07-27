@@ -3,7 +3,7 @@
 ## 📎웹사이트
 
 - [🍒 GIVE ME CHERRY!](http://34.64.109.102:8080)
-- [👿 MAD STORE LINK]()
+- [👿 MAD STORE LINK](http://store.madcamp.io/details?id=33)
 
 ## 👥팀원
 강은비, 박윤배
