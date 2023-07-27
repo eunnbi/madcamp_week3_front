@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { debounce } from "lodash";
 import "./style.css"
 import axios from "axios";
@@ -32,6 +32,11 @@ const CherryDonateButton = ({ userId, sponsorId }) => {
 		}, 1000),
 		[userId, sponsorId],
 	);
+    useEffect(() => {
+        return () => {
+            setEmoticons([]);
+        }
+    }, [])
     
     return (
         <div className="button-wrapper">
