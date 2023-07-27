@@ -8,7 +8,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Avatar = ({ user, room, isMyRoom }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [editedText, setEditedText] = useState(null);
+    const [editedText, setEditedText] = useState('');
     const bubbleRef = useRef(null);
     const [show, setShow] = useState(true);
     const [greetingMessage, setGreetingMessage] = useState(null);
@@ -27,7 +27,7 @@ const Avatar = ({ user, room, isMyRoom }) => {
     const handleDoubleClick = () => {
         if (isMyRoom) {
           setIsEditing(true);
-          setEditedText(editedText);
+          setEditedText(greetingMessage);
           if (timer.current !== null) clearTimeout(timer.current);
         }
     };
@@ -44,9 +44,11 @@ const Avatar = ({ user, room, isMyRoom }) => {
         setShow(true)
     }
     const handleMouseLeave = () => {
-        timer.current = setTimeout(() => {
-            setShow(false)
-        }, 2000)
+        if (!isEditing) {
+            timer.current = setTimeout(() => {
+                setShow(false)
+            }, 2000)
+        }
     }
     useEffect(() => {
         if (room !== null) {

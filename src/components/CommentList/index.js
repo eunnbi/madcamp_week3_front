@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import "./style.css";
 import { getComment } from "../../api/comment";
 import { getRoom } from "../../api/room";
 import { useQuery } from "@tanstack/react-query";
 import Skeleton from "@mui/material/Skeleton";
+import "./style.css";
 
 const CommentList = ({ user }) => {
     const initialEndIndex = 3;
@@ -19,7 +19,7 @@ const CommentList = ({ user }) => {
         },
         initialData: null
     })
-    const hasNextContent = () => data.length > endIndex + 1;
+    const hasNextContent = () => data.length > endIndex;
     const showMoreContent = () => {
         if (hasNextContent()) {
             setEndIndex((value) => value + inc);
@@ -46,7 +46,7 @@ const CommentList = ({ user }) => {
                     {data.slice(0, endIndex).map((item, index) => <Item name={item.authorName} content={item.content} key={index} />)}
                 </ul>
             )}
-            {data.length >= initialEndIndex && <button className="more-button" onClick={showMoreContent}>{hasNextContent() ? "더보기" : "접기"}</button>}
+            {data.length > initialEndIndex && <button className="more-button" onClick={showMoreContent}>{hasNextContent() ? "더보기" : "접기"}</button>}
         </div>
     )
 }
